@@ -139,7 +139,6 @@ def run():
         importHashedFiles()
         calculateHashedFiles()
         compareHashes()
-        exportHashedFiles()
         time.sleep(60*interval)
 
 
