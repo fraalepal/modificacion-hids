@@ -18,8 +18,18 @@ def folderHash(pathName):
             with open(os.path.join(root, file), "rb") as fileRaw:
                 # Habria q hacer algo para poder elegir entre multiples algoritmos de hash
                 # de todas formas he añadido la opcion de elegir en el archivo config.config
-                fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha256(
-                    fileRaw.read()).hexdigest()
+                if(configDict["Selected Hash mode"] == "sha3_256"):
+                    fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_256(
+                        fileRaw.read()).hexdigest()
+                elif(configDict["Selected Hash mode"] == "sha3_384"):
+                    fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_384(
+                        fileRaw.read()).hexdigest()
+                elif(configDict["Selected Hash mode"] == "sha3_512"):
+                    fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_512(
+                        fileRaw.read()).hexdigest()
+                elif(configDict["Selected Hash mode"] == "md5"):
+                    fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.md5(
+                        fileRaw.read()).hexdigest()
     return fileAndHash
 
 
@@ -43,7 +53,7 @@ def importConfig():
         except:
             print("¡No se ha podido cargar la configuracion, revisa la sintaxis!")
     else:
-        configs = ["Selected Hash=\n",
+        configs = ["\nSelected Hash mode=\n",
                    "Directories to protect=\n", "Verify interval=\n"]
         try:
             with open("config.config", "w") as file:
@@ -119,8 +129,7 @@ def compareHashes():
 
 
 importConfig()
-importHashedFiles()
-calculateHashedFiles()
-compareHashes()
-
-# exportHashedFiles()
+# importHashedFiles()
+# calculateHashedFiles()
+# compareHashes()
+exportHashedFiles()
