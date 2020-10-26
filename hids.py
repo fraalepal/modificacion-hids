@@ -8,6 +8,10 @@ newFilesAndHashes = dict()
 
 
 def folderHash(pathName):
+    """ Params: ruta """
+    """ Return: devuelve un diccionario formato por la ruta y el hash: key=ruta, value=hash """
+    """ Se le pasa una ruta y viaja por todos los archivos y las subrutas de dicha ruta y calcula los hashes
+    de cada uno de los archivos encontrados """
     fileAndHash = dict()
     for root, dirs, files in os.walk(pathName):
         for file in files:
@@ -20,6 +24,12 @@ def folderHash(pathName):
 
 
 def importConfig():
+    """ Params: NONE """
+    """ Return: NONE """
+    """ Crea un archivo de configuración si no lo hay con las opciones de la plantilla de 'configs'
+    y en caso de que ya exista (que sería siempre menos la primera vez que se ejecute el script)
+    carga la configuración de dicho archivo y la importa al diccionario del script llamado 'configDict',
+    mediante este diccionario vamos a poder manejar dichas opciones indicadas en el archivo de configuración"""
     if (os.path.exists("config.config")):
         try:
             with open("config.config", "r") as config:
@@ -48,6 +58,11 @@ def importConfig():
 
 
 def exportHashedFiles():
+    """ Params: NONE """
+    """ Return: NONE """
+    """ Comprueba las rutas que hemos indicado en el archivo de configuración y carga todos los archivos de cada una
+    de ellas gracias a la función anterior 'folderHash', una vez hecho esto crea un archivo 'hashes.hash' si no lo hay y escribe
+    en el todas las rutas junto a su hash, separadas mediante un simbolo '=' """
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
@@ -58,6 +73,9 @@ def exportHashedFiles():
 
 
 def importHashedFiles():
+    """ Params: NONE """
+    """ Return: NONE """
+    """ Lee el archivo 'hashes.hash' y carga cada una de las entradas en el diccionario 'newFilesAndHashes' presente en el script """
     with open("hashes.hash", "r") as reader:
         line = reader.readline()
         while line:
@@ -69,6 +87,10 @@ def importHashedFiles():
 
 
 def calculateHashedFiles():
+    """ Params: NONE """
+    """ Return: NONE """
+    """ Calcula los hashes de los archivos nuevamente, y reutilizamos el diccionario creado al principio 'filesAndHashes' esto servirá
+    para comparar los items de este diccionario con los del 'newFilesAndHashes'. """
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
@@ -76,6 +98,10 @@ def calculateHashedFiles():
 
 
 def compareHashes():
+    """ Params: NONE """
+    """ Return: NONE """
+    """ Compara los dos diccionarios, uno contiene los hashes cargados del archivo hashes.hash y el otro contiene los hashes recien calculados,
+    tras dicha comparación los resultados saldran por consola """
     numberOfFilesOK = int()
     numberOfFilesNoOk = int()
     listOfNoMatches = list()
