@@ -1,7 +1,7 @@
 import hashlib
 import os
 import time
-
+import datetime
 # GLOBALS
 configDict = dict()
 filesAndHashes = dict()
@@ -116,6 +116,7 @@ def compareHashes():
     numberOfFilesOK = int()
     numberOfFilesNoOk = int()
     listOfNoMatches = list()
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for key, value in filesAndHashes.items():
         if newFilesAndHashes[key] == value:
             numberOfFilesOK += 1
@@ -123,10 +124,11 @@ def compareHashes():
             numberOfFilesNoOk += 1
             cadena = "DIR: " + str(key) + " HASHES DOESN'T MATCH!"
             listOfNoMatches.append(cadena)
-    print("\nNumber of files OK: " + str(numberOfFilesOK))
-    print("Number of files BAD: " + str(numberOfFilesNoOk))
-    print("BAD integrity files: ")
-    print('\n '.join(listOfNoMatches))
+    print(
+        "\n" + str(now) + "   Number of files OK: " + str(numberOfFilesOK))
+    print(str(now) + "   Number of files BAD: " + str(numberOfFilesNoOk))
+    print(str(now) + "   BAD integrity files: ")
+    print(str(now) + '   \n '.join(listOfNoMatches))
 
 
 def run():
