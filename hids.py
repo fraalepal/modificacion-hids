@@ -1,5 +1,6 @@
 import hashlib
 import os
+import time
 
 # GLOBALS
 configDict = dict()
@@ -128,8 +129,16 @@ def compareHashes():
     print('\n '.join(listOfNoMatches))
 
 
-importConfig()
-# importHashedFiles()
-# calculateHashedFiles()
-# compareHashes()
-exportHashedFiles()
+def run():
+    importConfig()
+    interval = int(configDict["Verify interval"])
+    exportHashedFiles()
+    while(1):
+        importHashedFiles()
+        calculateHashedFiles()
+        compareHashes()
+        exportHashedFiles()
+        time.sleep(60*interval)
+
+
+run()
