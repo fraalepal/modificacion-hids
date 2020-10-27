@@ -2,10 +2,16 @@ import hashlib
 import os
 import time
 import datetime
+import plotly.graph_objects as go
+import plotly.express as px
+import pandas as pd
 # GLOBALS
 configDict = dict()
 filesAndHashes = dict()
 newFilesAndHashes = dict()
+badIntegrity = list()
+graphDate = list()
+cantidadDeArchivos = [0, 1000]
 
 
 def folderHash(pathName):
@@ -124,6 +130,8 @@ def compareHashes():
             numberOfFilesNoOk += 1
             cadena = "DIR: " + str(key) + " HASHES DOESN'T MATCH!"
             listOfNoMatches.append(cadena)
+    badIntegrity.append(numberOfFilesNoOk)
+    graphDate.append(datetime.datetime.now().strftime("%M"))
     print(
         "\n" + str(now) + "   Number of files OK: " + str(numberOfFilesOK))
     print(str(now) + "   Number of files BAD: " + str(numberOfFilesNoOk))
@@ -131,15 +139,37 @@ def compareHashes():
     print(str(now) + '   \n '.join(listOfNoMatches))
 
 
+def graph():
+    layout_title = "Evolución de la integridad de los archivos fecha:  " + \
+        str(datetime.datetime.now().strftime("%d-%m-%Y"))
+    # fig = go.Figure(data=[go.Bar(y=badIntegrity, x=graphDate)],layout_title_text = layout_title)
+
+    df = pd.DataFrame(dict(
+        x=graphDate,
+        y=badIntegrity
+    ))
+    fig = px.bar(df,
+                 x='x', y='y',  # data from df columns
+                 # color_discrete_sequence=['red']*3
+                 color_discrete_sequence=[
+                     'red']*3,
+                 title=layout_title,
+                 labels={'x': 'Dia', 'y': 'Numero de fallos de integridad'})
+    # dictionary = dict(zip(graphDate, badIntegrity))
+    # data = pd.DataFrame([dictionary])
+    fig.show()
+
+
 def run():
     importConfig()
     interval = int(configDict["Verify interval"])
-    exportHashedFiles()
+    # exportHashedFiles() # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
     while(1):
         importHashedFiles()
         calculateHashedFiles()
         compareHashes()
-        time.sleep(60*interval)
+        graph()
+        time.sleep(interval)
 
 
 run()
