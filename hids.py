@@ -5,6 +5,7 @@ import datetime
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
+import logging
 # GLOBALS
 configDict = dict()
 filesAndHashes = dict()
@@ -137,6 +138,10 @@ def compareHashes():
     print(str(now) + "   Number of files BAD: " + str(numberOfFilesNoOk))
     print(str(now) + "   BAD integrity files: ")
     print(str(now) + '   \n '.join(listOfNoMatches))
+    logging.info(listOfNoMatches)
+    logging.warning("HAY CORRESPONDENCIA")
+    logging.error("HAY CORRESPONDENCIA")
+    logging.debug("HAY CORRESPONDENCIA")
 
 
 def graph():
@@ -161,6 +166,7 @@ def graph():
 
 
 def run():
+    logging.basicConfig(filename='log.log', level=logging.INFO)
     importConfig()
     interval = int(configDict["Verify interval"])
     # exportHashedFiles() # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
