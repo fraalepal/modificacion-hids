@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INFO:root:2020-10-28 09:58:37 La configuración se ha importado correctamente!
 INFO:root:2020-10-28 09:58:37 Hashes importados correctamente!
 INFO:root:2020-10-28 09:58:37 Calculando los hashes de los archivos...
@@ -190,3 +191,70 @@ WARNING:root:2020-10-28 10:30:29 BAD integrity files:
            DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
            DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
            DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+=======
+
+INFO:root:2020-10-28 10:43:23 La configuración se ha importado correctamente!
+INFO:root:2020-10-28 10:43:23 Hashes importados correctamente!
+INFO:root:2020-10-28 10:43:23 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:43:23 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:43:23 Number of files OK: 0
+INFO:root:2020-10-28 10:43:23 Number of files BAD: 1
+WARNING:root:2020-10-28 10:43:23 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:43:23 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:43:23 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:43:23 Number of files OK: 0
+INFO:root:2020-10-28 10:43:23 Number of files BAD: 1
+WARNING:root:2020-10-28 10:43:23 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:43:23 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:43:23 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:43:23 Number of files OK: 0
+INFO:root:2020-10-28 10:43:23 Number of files BAD: 1
+WARNING:root:2020-10-28 10:43:23 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:43:23 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:43:23 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:43:23 Number of files OK: 0
+INFO:root:2020-10-28 10:43:23 Number of files BAD: 1
+WARNING:root:2020-10-28 10:43:23 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:43:23 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:43:23 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:43:23 Number of files OK: 0
+INFO:root:2020-10-28 10:43:23 Number of files BAD: 1
+WARNING:root:2020-10-28 10:43:23 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:43:23 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:43:23 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:43:23 Number of files OK: 0
+INFO:root:2020-10-28 10:43:23 Number of files BAD: 1
+WARNING:root:2020-10-28 10:43:23 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:43:23 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:43:23 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:43:23 Number of files OK: 0
+INFO:root:2020-10-28 10:43:23 Number of files BAD: 1
+WARNING:root:2020-10-28 10:43:23 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:43:23 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:43:23 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:43:23 Number of files OK: 0
+INFO:root:2020-10-28 10:43:23 Number of files BAD: 1
+WARNING:root:2020-10-28 10:43:23 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:43:23 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:43:23 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:43:23 Number of files OK: 0
+INFO:root:2020-10-28 10:43:23 Number of files BAD: 1
+WARNING:root:2020-10-28 10:43:23 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:46:21 La configuración se ha importado correctamente!
+INFO:root:2020-10-28 10:46:21 Hashes importados correctamente!
+INFO:root:2020-10-28 10:46:21 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:46:21 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:46:21 Number of files OK: 0
+INFO:root:2020-10-28 10:46:21 Number of files BAD: 1
+WARNING:root:2020-10-28 10:46:21 BAD integrity files: 
+           DIR: C:/Prueba/Fichero.txt HASHES DOESN'T MATCH!
+>>>>>>> 2380e06ce6058545fea9c2f8c70d38b7c878fd53
