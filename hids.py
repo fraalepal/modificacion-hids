@@ -6,6 +6,10 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import logging
+import tkinter as tk
+import threading
+from threading import Thread
+
 # GLOBALS
 configDict = dict()
 filesAndHashes = dict()
@@ -14,6 +18,7 @@ badIntegrity = list()
 graphDate = list()
 cantidadDeArchivos = [0, 1000]
 now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+interval = 0
 
 
 def folderHash(pathName):
@@ -92,6 +97,7 @@ def exportHashedFiles():
     with open("hashes.hash", "w") as writer:
         for key, value in filesAndHashes.items():
             writer.write(key + "=" + value + "\n")
+    logging.info(str(now) + "Hashes exportados correctamente")
 
 
 def importHashedFiles():
@@ -183,16 +189,48 @@ def graph():
 
 
 def run():
-    logging.basicConfig(filename='log.log', level=logging.INFO)
-    importConfig()
-    interval = int(configDict["Verify interval"])
-    importHashedFiles()
-    # exportHashedFiles() # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
-    while(1):
+    if running == True:
         calculateHashedFiles()
         compareHashes()
         # graph()
-        time.sleep(interval)
+        threading.Timer(float(interval), run).start()
 
+def runHandle():
+    t = Thread(target=run)
+    global running
+    running = True
+    t.start()
 
-run()
+def init():
+    logging.basicConfig(filename='log.log', level=logging.INFO)
+    importConfig()
+    global interval
+    interval = int(configDict["Verify interval"])
+    # exportHashedFiles() # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
+    importHashedFiles()
+    runHandle()
+
+def gui():
+    window = tk.Tk()
+    window.title("HIDS")
+    btn = tk.Button(window, text="Iniciar", command=init)
+    btn.grid(column=1, row=0)
+    btnCerrar = tk.Button(window, text="Cerrar", command=stop)
+    btnCerrar.grid(column=2, row=0)
+    window.protocol("WM_DELETE_WINDOW", stopAndClose)
+    window.mainloop()
+
+def stop():
+    global running
+    running = False
+    logging.warning(str(now) + "EXAMEN INTERRUMPIDO")
+    #os._exit(1)
+
+def stopAndClose():
+    global running
+    running = False
+    logging.warning(str(now) + "HIDS CERRADO")
+    os._exit(1) 
+
+#run()
+gui()
