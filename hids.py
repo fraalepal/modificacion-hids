@@ -11,7 +11,7 @@ import threading
 import sys
 from threading import Thread
 from tkinter.scrolledtext import ScrolledText
-
+from win10toast import ToastNotifier
 
 # GLOBALS
 configDict = dict()
@@ -25,6 +25,7 @@ interval = 0
 running = bool()
 window = tk.Tk()
 entry = ScrolledText(window, width=70, height=20)
+toaster = ToastNotifier()
 
 
 def folderHash(pathName):
@@ -75,12 +76,11 @@ def importConfig():
                     else:
                         entry.insert(tk.INSERT, line)
                     entry.insert(tk.END, "")
-            logging.info(
-                str(now) + " La configuración se ha importado correctamente!")
+            logging.info("La configuración se ha importado correctamente!")
             #entry.insert(tk.END, " in ScrolledText")
             # print(configDict)
         except:
-            logging.error(str(now) + " Error al importar la configuración!")
+            logging.error("Error al importar la configuración!")
     else:
         configs = ["\nSelected Hash mode=\n",
                    "Directories to protect=\n", "Verify interval=\n"]
@@ -90,12 +90,10 @@ def importConfig():
                     "# To list directories, write them separated by comma\n# Interval time in minutes")
                 for config in configs:
                     file.write(config)
-            logging.info(
-                str(now) + " Archivo de configuración creado satisfactoriamente!")
+            logging.info("Archivo de configuración creado satisfactoriamente!")
 
         except:
-            logging.error(str(
-                now) + " Error al crear el archivo de configuración, problema con los permisos?")
+            logging.error("Error al crear el archivo de configuración, problema con los permisos?")
 
 
 def exportConfig():
@@ -119,7 +117,7 @@ def exportHashedFiles():
     with open("hashes.hash", "w") as writer:
         for key, value in filesAndHashes.items():
             writer.write(key + "=" + value + "\n")
-    logging.info(str(now) + " Hashes exportados correctamente")
+    logging.info("Hashes exportados correctamente")
 
 
 def importHashedFiles():
@@ -134,9 +132,9 @@ def importHashedFiles():
                 newFilesAndHashes[splittedLineList[0].replace(
                     "\n", "")] = splittedLineList[1].replace("\n", "")
                 line = reader.readline()
-        logging.info(str(now) + " Hashes importados correctamente!")
+        logging.info("Hashes importados correctamente!")
     except:
-        logging.error(str(now) + " Error al importar los hashes!")
+        logging.error("Error al importar los hashes!")
         # print(newFilesAndHashes)
 
 
@@ -145,12 +143,12 @@ def calculateHashedFiles():
     """ Return: NONE """
     """ Calcula los hashes de los archivos nuevamente, y reutilizamos el diccionario creado al principio 'filesAndHashes' esto servirá
     para comparar los items de este diccionario con los del 'newFilesAndHashes'. """
-    logging.info(str(now) + " Calculando los hashes de los archivos...")
+    logging.info("Calculando los hashes de los archivos...")
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
         filesAndHashes.update(folderHash(path))
-    logging.info(str(now) + " Hashes calculados satisfactoriamente!")
+    logging.info("Hashes calculados satisfactoriamente!")
 
 
 def compareHashes():
@@ -170,19 +168,21 @@ def compareHashes():
             listOfNoMatches.append(cadena)
     badIntegrity.append(numberOfFilesNoOk)
     graphDate.append(datetime.datetime.now().strftime("%M"))
-    str1 = str(now) + " Number of files OK: " + str(numberOfFilesOK)
-    str2 = str(now) + " Number of files BAD: " + str(numberOfFilesNoOk)
+    str1 = "Number of files OK: " + str(numberOfFilesOK)
+    str2 = "Number of files BAD: " + str(numberOfFilesNoOk)
     logging.info(str1)
     logging.info(str2)
     if(listOfNoMatches):
-        str3 = str(now) + " BAD integrity files: "
+        str3 = "BAD integrity files: "
         # str4 = str(now) + '\n'.join(listOfNoMatches) # no funciona el tabulamiento con esto
         # logging.warning(str3)
         noMatchesToPrint = list()
         for entry in listOfNoMatches:
             noMatchesToPrint.append("           "+entry)
         logging.warning(str3 + "\n" + '\n'.join(noMatchesToPrint))
-
+        toaster.show_toast("HIDS", "Hay un problema integridad. Revisar LOG.", duration=interval, threaded = True)
+    else:
+        toaster.show_toast("HIDS", "Examen finalizado. Se mantiene la integridad.", duration=interval, threaded = True)
 
 def graph():
     """ Params: NONE """
@@ -221,7 +221,7 @@ def runHandle():
     t.start()
 
 
-def init():
+def initExam():
     console = logging.StreamHandler(sys.stdout)
     console.setLevel(100)
     root_logger = logging.getLogger("")
@@ -253,7 +253,7 @@ def gui():
     btnGraph.pack(pady=15, padx=15)
     btnGraph.place(x=105, y=55)
     btnIniciar = tk.Button(window, text="Iniciar",
-                           command=init)
+                           command=initExam)
     btnIniciar.pack(pady=15, padx=15)
     btnIniciar.place(x=105, y=5)
     btnCerrar = tk.Button(window, text="Cerrar", command=stop)
@@ -267,21 +267,23 @@ def gui():
 
 
 def stop():
+    toaster.show_toast("HIDS", "Servicio interrumpido. El sistema NO está examinando los directorios.", threaded=True)
     global running
+    # if running == True:
     running = False
-    logging.info(str(now) + " EXAMEN INTERRUMPIDO")
-    # os._exit(1)
+    logging.critical("EXAMEN INTERRUMPIDO")
+        # os._exit(1)
 
 
 def stopAndClose():
     global running
     running = False
-    logging.info(str(now) + " HIDS CERRADO")
+    logging.critical("HIDS CERRADO")
     os._exit(1)
 
 
 def iniciar():
-    logging.basicConfig(filename='log.log', level=logging.INFO)
+    logging.basicConfig(format='%(levelname)s:%(asctime)s: %(message)s', datefmt='%m/%d/%Y %H:%M:%S', filename='log.log', level=logging.INFO)
     importConfig()
     gui()
 
