@@ -156,12 +156,10 @@ def compareHashes():
         logging.warning(str3 + "\n" + '\n'.join(noMatchesToPrint))
 
 
-"""    logging.warning("HAY CORRESPONDENCIA")
-    logging.error("HAY CORRESPONDENCIA")
-    logging.debug("HAY CORRESPONDENCIA")"""
-
-
 def graph():
+    """ Params: NONE """
+    """ Return: NONE """
+    """ Muestra una gráfica en el navegador en base a los datos de las dos listas 'badIntegrity' y 'graphDate' """
     layout_title = "Evolución de la integridad de los archivos fecha:  " + \
         str(datetime.datetime.now().strftime("%d-%m-%Y"))
     # fig = go.Figure(data=[go.Bar(y=badIntegrity, x=graphDate)],layout_title_text = layout_title)
@@ -191,7 +189,7 @@ def run():
     while(1):
         calculateHashedFiles()
         compareHashes()
-        # graph()
+        graph()
         time.sleep(interval)
 
 

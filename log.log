@@ -16,3 +16,177 @@ WARNING:root:2020-10-28 09:58:37 BAD integrity files:
            DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
            DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
            DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:04:43 La configuración se ha importado correctamente!
+INFO:root:2020-10-28 10:04:43 Hashes importados correctamente!
+INFO:root:2020-10-28 10:04:43 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:04:43 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:04:43 Number of files OK: 2864
+INFO:root:2020-10-28 10:04:43 Number of files BAD: 11
+WARNING:root:2020-10-28 10:04:43 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:04:43 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:04:43 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:04:43 Number of files OK: 2864
+INFO:root:2020-10-28 10:04:43 Number of files BAD: 11
+WARNING:root:2020-10-28 10:04:43 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:04:43 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:04:43 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:04:43 Number of files OK: 2864
+INFO:root:2020-10-28 10:04:43 Number of files BAD: 11
+WARNING:root:2020-10-28 10:04:43 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:14:59 La configuración se ha importado correctamente!
+INFO:root:2020-10-28 10:14:59 Hashes importados correctamente!
+INFO:root:2020-10-28 10:14:59 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:14:59 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:14:59 Number of files OK: 2864
+INFO:root:2020-10-28 10:14:59 Number of files BAD: 11
+WARNING:root:2020-10-28 10:14:59 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:15:41 La configuración se ha importado correctamente!
+INFO:root:2020-10-28 10:15:41 Hashes importados correctamente!
+INFO:root:2020-10-28 10:15:41 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:15:41 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:15:41 Number of files OK: 2864
+INFO:root:2020-10-28 10:15:41 Number of files BAD: 11
+WARNING:root:2020-10-28 10:15:41 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:17:14 La configuración se ha importado correctamente!
+INFO:root:2020-10-28 10:17:14 Hashes importados correctamente!
+INFO:root:2020-10-28 10:17:14 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:17:14 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:17:14 Number of files OK: 2864
+INFO:root:2020-10-28 10:17:14 Number of files BAD: 11
+WARNING:root:2020-10-28 10:17:14 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:17:56 La configuración se ha importado correctamente!
+INFO:root:2020-10-28 10:17:56 Hashes importados correctamente!
+INFO:root:2020-10-28 10:17:56 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:17:56 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:17:56 Number of files OK: 2864
+INFO:root:2020-10-28 10:17:56 Number of files BAD: 11
+WARNING:root:2020-10-28 10:17:56 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:20:20 La configuración se ha importado correctamente!
+INFO:root:2020-10-28 10:20:20 Hashes importados correctamente!
+INFO:root:2020-10-28 10:20:20 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:20:20 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:20:20 Number of files OK: 2864
+INFO:root:2020-10-28 10:20:20 Number of files BAD: 11
+WARNING:root:2020-10-28 10:20:20 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:30:29 La configuración se ha importado correctamente!
+INFO:root:2020-10-28 10:30:29 Hashes importados correctamente!
+INFO:root:2020-10-28 10:30:29 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:30:29 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:30:29 Number of files OK: 2864
+INFO:root:2020-10-28 10:30:29 Number of files BAD: 11
+WARNING:root:2020-10-28 10:30:29 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
+INFO:root:2020-10-28 10:30:29 Calculando los hashes de los archivos...
+INFO:root:2020-10-28 10:30:29 Hashes calculados satisfactoriamente!
+INFO:root:2020-10-28 10:30:29 Number of files OK: 2864
+INFO:root:2020-10-28 10:30:29 Number of files BAD: 11
+WARNING:root:2020-10-28 10:30:29 BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/1º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/2º_Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/3º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/4º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/5º Entregable.docx HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/BOCETO_DE_PUT_Y_GET.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIAS_DE_USUARIO_ADMIN_CON_BOT.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/HISTORIA_PARA_API_REST.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/LOGICA_INICIAL_PARA_FUNCIONAMIENTO_HARDWARE.txt HASHES DOESN'T MATCH!
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/Documentacion/TelegramBot.txt HASHES DOESN'T MATCH!
