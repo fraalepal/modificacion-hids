@@ -9,6 +9,7 @@ import logging
 import tkinter as tk
 import threading
 from threading import Thread
+from tkinter.scrolledtext import ScrolledText
 
 # GLOBALS
 configDict = dict()
@@ -20,6 +21,8 @@ cantidadDeArchivos = [0, 1000]
 now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 interval = 0
 running = bool()
+window = tk.Tk()
+entry = ScrolledText(window, width=70, height=20)
 
 
 def folderHash(pathName):
@@ -63,8 +66,13 @@ def importConfig():
                         confSplitted = line.split("=")
                         configDict[confSplitted[0].strip(
                         )] = confSplitted[1].strip()
+
+                        entry.insert(tk.INSERT, confSplitted[0].strip(
+                        ) + "=" + confSplitted[1].strip() + "\n")
+                        entry.insert(tk.END, "")
             logging.info(
                 str(now) + " La configuración se ha importado correctamente!")
+            #entry.insert(tk.END, " in ScrolledText")
             # print(configDict)
         except:
             logging.error(str(now) + " Error al importar la configuración!")
@@ -83,6 +91,11 @@ def importConfig():
         except:
             logging.error(str(
                 now) + " Error al crear el archivo de configuración, problema con los permisos?")
+
+
+def exportConfig():
+    with open("config.config", "w") as config:
+        config.write(entry.get("1.0", tk.END))
 
 
 def exportHashedFiles():
@@ -214,12 +227,27 @@ def init():
 
 
 def gui():
-    window = tk.Tk()
+    window.resizable(0, 0)
+    window.geometry("1024x512")
+    label1 = tk.Label(window, text="Iniciar el examen: ")
+    label2 = tk.Label(window, text="Parar el examen: ")
+    label1.pack()
+    label1.place(x=5, y=5)
+    label2.pack()
+    label2.place(x=5, y=30)
+    entry.place(x=0, y=0)
+    entry.pack()
     window.title("HIDS")
-    btn = tk.Button(window, text="Iniciar", command=init)
-    btn.grid(column=1, row=0)
+    btnIniciar = tk.Button(window, text="Iniciar",
+                           command=init)
+    btnIniciar.pack(pady=15, padx=15)
+    btnIniciar.place(x=105, y=5)
     btnCerrar = tk.Button(window, text="Cerrar", command=stop)
-    btnCerrar.grid(column=2, row=0)
+    btnCerrar.pack()
+    btnCerrar.place(x=105, y=30)
+    btnGuardar = tk.Button(window, text="Guardar", command=exportConfig)
+    btnGuardar.place(x=800, y=500)
+    btnGuardar.pack()
     window.protocol("WM_DELETE_WINDOW", stopAndClose)
     window.mainloop()
 
@@ -227,14 +255,14 @@ def gui():
 def stop():
     global running
     running = False
-    logging.warning(str(now) + " EXAMEN INTERRUMPIDO")
+    logging.info(str(now) + " EXAMEN INTERRUMPIDO")
     # os._exit(1)
 
 
 def stopAndClose():
     global running
     running = False
-    logging.warning(str(now) + " HIDS CERRADO")
+    logging.info(str(now) + " HIDS CERRADO")
     os._exit(1)
 
 
