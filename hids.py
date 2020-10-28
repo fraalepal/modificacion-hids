@@ -19,6 +19,7 @@ graphDate = list()
 cantidadDeArchivos = [0, 1000]
 now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 interval = 0
+running = bool()
 
 
 def folderHash(pathName):
@@ -97,7 +98,7 @@ def exportHashedFiles():
     with open("hashes.hash", "w") as writer:
         for key, value in filesAndHashes.items():
             writer.write(key + "=" + value + "\n")
-    logging.info(str(now) + "Hashes exportados correctamente")
+    logging.info(str(now) + " Hashes exportados correctamente")
 
 
 def importHashedFiles():
@@ -206,7 +207,8 @@ def init():
     importConfig()
     global interval
     interval = int(configDict["Verify interval"])
-    # exportHashedFiles() # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
+    # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
+    exportHashedFiles()
     importHashedFiles()
     runHandle()
 
@@ -225,14 +227,14 @@ def gui():
 def stop():
     global running
     running = False
-    logging.warning(str(now) + "EXAMEN INTERRUMPIDO")
+    logging.warning(str(now) + " EXAMEN INTERRUMPIDO")
     # os._exit(1)
 
 
 def stopAndClose():
     global running
     running = False
-    logging.warning(str(now) + "HIDS CERRADO")
+    logging.warning(str(now) + " HIDS CERRADO")
     os._exit(1)
 
 
