@@ -69,7 +69,10 @@ def importConfig():
 
                         entry.insert(tk.INSERT, confSplitted[0].strip(
                         ) + "=" + confSplitted[1].strip() + "\n")
-                        entry.insert(tk.END, "")
+
+                    else:
+                        entry.insert(tk.INSERT, line)
+                    entry.insert(tk.END, "")
             logging.info(
                 str(now) + " La configuración se ha importado correctamente!")
             #entry.insert(tk.END, " in ScrolledText")
@@ -94,6 +97,9 @@ def importConfig():
 
 
 def exportConfig():
+    """ Params: NONE """
+    """ Return: NONE """
+    """ Escribe en el archivo 'config.config' las configuraciones reflejadas en la caja de texto del script """
     with open("config.config", "w") as config:
         config.write(entry.get("1.0", tk.END))
 
@@ -182,25 +188,23 @@ def graph():
     """ Muestra una gráfica en el navegador en base a los datos de las dos listas 'badIntegrity' y 'graphDate' """
     layout_title = "Evolución de la integridad de los archivos fecha:  " + \
         str(datetime.datetime.now().strftime("%d-%m-%Y"))
-    # fig = go.Figure(data=[go.Bar(y=badIntegrity, x=graphDate)],layout_title_text = layout_title)
-
     df = pd.DataFrame(dict(
         x=graphDate,
         y=badIntegrity
     ))
     fig = px.bar(df,
-                 x='x', y='y',  # data from df columns
-                 # color_discrete_sequence=['red']*3
+                 x='x', y='y',
                  color_discrete_sequence=[
                      'red']*3,
                  title=layout_title,
                  labels={'x': 'Dia', 'y': 'Numero de fallos de integridad'})
-    # dictionary = dict(zip(graphDate, badIntegrity))
-    # data = pd.DataFrame([dictionary])
     fig.show()
 
 
 def run():
+    """ Params: NONE """
+    """ Return: NONE """
+    """  """
     if running == True:
         calculateHashedFiles()
         compareHashes()
@@ -217,38 +221,46 @@ def runHandle():
 
 def init():
     logging.basicConfig(filename='log.log', level=logging.INFO)
-    importConfig()
     global interval
     interval = int(configDict["Verify interval"])
     # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
-    exportHashedFiles()
+    # exportHashedFiles()
     importHashedFiles()
     runHandle()
 
 
 def gui():
     window.resizable(0, 0)
-    window.geometry("1024x512")
+    window.geometry("900x512")
     label1 = tk.Label(window, text="Iniciar el examen: ")
     label2 = tk.Label(window, text="Parar el examen: ")
+    label3 = tk.Label(window, text="Abrir gráfico: ")
     label1.pack()
     label1.place(x=5, y=5)
     label2.pack()
     label2.place(x=5, y=30)
-    entry.place(x=0, y=0)
+    label3.pack()
+    label3.place(x=5, y=55)
     entry.pack()
+    entry.place(x=200, y=0)
+
     window.title("HIDS")
+    btnGraph = tk.Button(window, text="Abrir grafico", command=graph)
+    btnGraph.pack(pady=15, padx=15)
+    btnGraph.place(x=105, y=55)
     btnIniciar = tk.Button(window, text="Iniciar",
                            command=init)
     btnIniciar.pack(pady=15, padx=15)
     btnIniciar.place(x=105, y=5)
     btnCerrar = tk.Button(window, text="Cerrar", command=stop)
-    btnCerrar.pack()
+    btnCerrar.pack(pady=15, padx=15)
     btnCerrar.place(x=105, y=30)
     btnGuardar = tk.Button(window, text="Guardar", command=exportConfig)
-    btnGuardar.place(x=800, y=500)
-    btnGuardar.pack()
+    btnGuardar.pack(pady=15, padx=15)
+    btnGuardar.place(x=720, y=350)
+
     window.protocol("WM_DELETE_WINDOW", stopAndClose)
+    importConfig()
     window.mainloop()
 
 
