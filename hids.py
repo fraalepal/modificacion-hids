@@ -8,8 +8,10 @@ import pandas as pd
 import logging
 import tkinter as tk
 import threading
+import sys
 from threading import Thread
 from tkinter.scrolledtext import ScrolledText
+
 
 # GLOBALS
 configDict = dict()
@@ -220,7 +222,10 @@ def runHandle():
 
 
 def init():
-    logging.basicConfig(filename='log.log', level=logging.INFO)
+    console = logging.StreamHandler(sys.stdout)
+    console.setLevel(100)
+    root_logger = logging.getLogger("")
+    root_logger.addHandler(console)
     global interval
     interval = int(configDict["Verify interval"])
     # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
@@ -243,7 +248,6 @@ def gui():
     label3.place(x=5, y=55)
     entry.pack()
     entry.place(x=200, y=0)
-
     window.title("HIDS")
     btnGraph = tk.Button(window, text="Abrir grafico", command=graph)
     btnGraph.pack(pady=15, padx=15)
@@ -258,9 +262,7 @@ def gui():
     btnGuardar = tk.Button(window, text="Guardar", command=exportConfig)
     btnGuardar.pack(pady=15, padx=15)
     btnGuardar.place(x=720, y=350)
-
     window.protocol("WM_DELETE_WINDOW", stopAndClose)
-    importConfig()
     window.mainloop()
 
 
@@ -278,5 +280,10 @@ def stopAndClose():
     os._exit(1)
 
 
-# run()
-gui()
+def iniciar():
+    logging.basicConfig(filename='log.log', level=logging.INFO)
+    importConfig()
+    gui()
+
+
+iniciar()
