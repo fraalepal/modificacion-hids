@@ -13,6 +13,7 @@ newFilesAndHashes = dict()
 badIntegrity = list()
 graphDate = list()
 cantidadDeArchivos = [0, 1000]
+now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
 def folderHash(pathName):
@@ -56,10 +57,11 @@ def importConfig():
                         confSplitted = line.split("=")
                         configDict[confSplitted[0].strip(
                         )] = confSplitted[1].strip()
-            print("¡La configuración se ha cargado correctamente!")
+            logging.info(
+                str(now) + " La configuración se ha importado correctamente!")
             # print(configDict)
         except:
-            print("¡No se ha podido cargar la configuracion, revisa la sintaxis!")
+            logging.error(str(now) + " Error al importar la configuración!")
     else:
         configs = ["\nSelected Hash mode=\n",
                    "Directories to protect=\n", "Verify interval=\n"]
@@ -69,10 +71,12 @@ def importConfig():
                     "# To list directories, write them separated by comma\n# Interval time in minutes")
                 for config in configs:
                     file.write(config)
-            print("¡Archivo de configuración creado!")
+            logging.info(
+                str(now) + " Archivo de configuración creado satisfactoriamente!")
+
         except:
-            print(
-                "¡No se ha podido crear el archivo de configuración, revisa los permisos!")
+            logging.error(str(
+                now) + " Error al crear el archivo de configuración, problema con los permisos?")
 
 
 def exportHashedFiles():
@@ -94,14 +98,18 @@ def importHashedFiles():
     """ Params: NONE """
     """ Return: NONE """
     """ Lee el archivo 'hashes.hash' y carga cada una de las entradas en el diccionario 'newFilesAndHashes' presente en el script """
-    with open("hashes.hash", "r") as reader:
-        line = reader.readline()
-        while line:
-            splittedLineList = line.split("=")
-            newFilesAndHashes[splittedLineList[0].replace(
-                "\n", "")] = splittedLineList[1].replace("\n", "")
+    try:
+        with open("hashes.hash", "r") as reader:
             line = reader.readline()
-    # print(newFilesAndHashes)
+            while line:
+                splittedLineList = line.split("=")
+                newFilesAndHashes[splittedLineList[0].replace(
+                    "\n", "")] = splittedLineList[1].replace("\n", "")
+                line = reader.readline()
+        logging.info(str(now) + " Hashes importados correctamente!")
+    except:
+        logging.error(str(now) + " Error al importar los hashes!")
+        # print(newFilesAndHashes)
 
 
 def calculateHashedFiles():
@@ -109,10 +117,12 @@ def calculateHashedFiles():
     """ Return: NONE """
     """ Calcula los hashes de los archivos nuevamente, y reutilizamos el diccionario creado al principio 'filesAndHashes' esto servirá
     para comparar los items de este diccionario con los del 'newFilesAndHashes'. """
+    logging.info(str(now) + " Calculando los hashes de los archivos...")
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
         filesAndHashes.update(folderHash(path))
+    logging.info(str(now) + " Hashes calculados satisfactoriamente!")
 
 
 def compareHashes():
@@ -123,7 +133,6 @@ def compareHashes():
     numberOfFilesOK = int()
     numberOfFilesNoOk = int()
     listOfNoMatches = list()
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for key, value in filesAndHashes.items():
         if newFilesAndHashes[key] == value:
             numberOfFilesOK += 1
@@ -133,15 +142,23 @@ def compareHashes():
             listOfNoMatches.append(cadena)
     badIntegrity.append(numberOfFilesNoOk)
     graphDate.append(datetime.datetime.now().strftime("%M"))
-    print(
-        "\n" + str(now) + "   Number of files OK: " + str(numberOfFilesOK))
-    print(str(now) + "   Number of files BAD: " + str(numberOfFilesNoOk))
-    print(str(now) + "   BAD integrity files: ")
-    print(str(now) + '   \n '.join(listOfNoMatches))
-    logging.info(listOfNoMatches)
-    logging.warning("HAY CORRESPONDENCIA")
+    str1 = str(now) + " Number of files OK: " + str(numberOfFilesOK)
+    str2 = str(now) + " Number of files BAD: " + str(numberOfFilesNoOk)
+    logging.info(str1)
+    logging.info(str2)
+    if(listOfNoMatches):
+        str3 = str(now) + " BAD integrity files: "
+        # str4 = str(now) + '\n'.join(listOfNoMatches) # no funciona el tabulamiento con esto
+        # logging.warning(str3)
+        noMatchesToPrint = list()
+        for entry in listOfNoMatches:
+            noMatchesToPrint.append("           "+entry)
+        logging.warning(str3 + "\n" + '\n'.join(noMatchesToPrint))
+
+
+"""    logging.warning("HAY CORRESPONDENCIA")
     logging.error("HAY CORRESPONDENCIA")
-    logging.debug("HAY CORRESPONDENCIA")
+    logging.debug("HAY CORRESPONDENCIA")"""
 
 
 def graph():
@@ -169,12 +186,12 @@ def run():
     logging.basicConfig(filename='log.log', level=logging.INFO)
     importConfig()
     interval = int(configDict["Verify interval"])
+    importHashedFiles()
     # exportHashedFiles() # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
     while(1):
-        importHashedFiles()
         calculateHashedFiles()
         compareHashes()
-        graph()
+        # graph()
         time.sleep(interval)
 
 
