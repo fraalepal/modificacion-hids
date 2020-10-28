@@ -12,6 +12,7 @@ import sys
 from threading import Thread
 from tkinter.scrolledtext import ScrolledText
 from win10toast import ToastNotifier
+import smtplib
 
 # GLOBALS
 configDict = dict()
@@ -83,17 +84,18 @@ def importConfig():
             logging.error("Error al importar la configuración!")
     else:
         configs = ["\nSelected Hash mode=\n",
-                   "Directories to protect=\n", "Verify interval=\n"]
+                   "Directories to protect=\n", "Verify interval=\n", "email=\n", "smtpPass=\n", "toEmail=\n"]
         try:
             with open("config.config", "w") as file:
                 file.write(
-                    "# To list directories, write them separated by comma\n# Interval time in minutes")
+                    "# Agregar los directorios a proteger, separados por una coma\n# Intervalo de tiempo entre examenes en minutos\n# Guardar la configuracion antes de iniciar el examen")
                 for config in configs:
                     file.write(config)
             logging.info("Archivo de configuración creado satisfactoriamente!")
 
         except:
-            logging.error("Error al crear el archivo de configuración, problema con los permisos?")
+            logging.error(
+                "Error al crear el archivo de configuración, problema con los permisos?")
 
 
 def exportConfig():
@@ -174,15 +176,17 @@ def compareHashes():
     logging.info(str2)
     if(listOfNoMatches):
         str3 = "BAD integrity files: "
-        # str4 = str(now) + '\n'.join(listOfNoMatches) # no funciona el tabulamiento con esto
-        # logging.warning(str3)
         noMatchesToPrint = list()
         for entry in listOfNoMatches:
             noMatchesToPrint.append("           "+entry)
         logging.warning(str3 + "\n" + '\n'.join(noMatchesToPrint))
-        toaster.show_toast("HIDS", "Hay un problema integridad. Revisar LOG.", duration=interval, threaded = True)
+        toaster.show_toast(
+            "HIDS", "Hay un problema integridad. Revisar LOG.", duration=interval, threaded=True)
+        sendEmail(str3 + "\n" + '\n'.join(noMatchesToPrint))
     else:
-        toaster.show_toast("HIDS", "Examen finalizado. Se mantiene la integridad.", duration=interval, threaded = True)
+        toaster.show_toast(
+            "HIDS", "Examen finalizado. Se mantiene la integridad.", duration=interval, threaded=True)
+
 
 def graph():
     """ Params: NONE """
@@ -234,6 +238,22 @@ def initExam():
     runHandle()
 
 
+def sendEmail(bodyMsg):
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+
+    server.login(configDict["email"], configDict["smtpPass"])
+    subject = "¡Problema con la integridad de los archivos!"
+    body = bodyMsg
+    msg = f"Subject: {subject}\n\n{body}".encode('utf-8')
+    emailList = configDict["toEmail"].split(",")
+    for email in emailList:
+        server.sendmail("empresa@empresa.com", email, msg)
+    server.quit()
+
+
 def gui():
     window.resizable(0, 0)
     window.geometry("900x512")
@@ -267,12 +287,13 @@ def gui():
 
 
 def stop():
-    toaster.show_toast("HIDS", "Servicio interrumpido. El sistema NO está examinando los directorios.", threaded=True)
+    toaster.show_toast(
+        "HIDS", "Servicio interrumpido. El sistema NO está examinando los directorios.", threaded=True)
     global running
     # if running == True:
     running = False
     logging.critical("EXAMEN INTERRUMPIDO")
-        # os._exit(1)
+    # os._exit(1)
 
 
 def stopAndClose():
@@ -283,7 +304,8 @@ def stopAndClose():
 
 
 def iniciar():
-    logging.basicConfig(format='%(levelname)s:%(asctime)s: %(message)s', datefmt='%m/%d/%Y %H:%M:%S', filename='log.log', level=logging.INFO)
+    logging.basicConfig(format='%(levelname)s:%(asctime)s: %(message)s',
+                        datefmt='%m/%d/%Y %H:%M:%S', filename='log.log', level=logging.INFO)
     importConfig()
     gui()
 
