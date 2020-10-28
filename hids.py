@@ -25,7 +25,7 @@ now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 interval = 0
 running = bool()
 window = tk.Tk()
-entry = ScrolledText(window, width=70, height=20)
+entry = ScrolledText(window, width=80, height=20)
 logBox = ScrolledText(window, width=80, height=20)
 toaster = ToastNotifier()
 
@@ -250,7 +250,7 @@ def initExam():
     root_logger.addHandler(console)
     global interval
     interval = int(configDict["Verify interval"])
-    # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos
+    # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos -> Si no, ejecutar exportHashedFiles()
     # exportHashedFiles()
     importHashedFiles()
     runHandle()
@@ -274,34 +274,40 @@ def sendEmail(bodyMsg):
 
 def gui():
     window.resizable(0, 0)
-    window.geometry("1500x512")
-    label1 = tk.Label(window, text="Iniciar el examen: ")
-    label2 = tk.Label(window, text="Parar el examen: ")
-    label3 = tk.Label(window, text="Abrir gráfico: ")
-    label1.pack()
-    label1.place(x=5, y=5)
-    label2.pack()
-    label2.place(x=5, y=30)
-    label3.pack()
-    label3.place(x=5, y=55)
+    window.geometry("1340x512")
+    labelInicio = tk.Label(window, text="Iniciar el examen ")
+    labelStop = tk.Label(window, text="Parar el examen ")
+    labelGraph = tk.Label(window, text="Abrir gráfico ")
+    labelConf = tk.Label(window, text="Fichero de configuración")
+    labelLog = tk.Label(window, text="Fichero de LOG")
+    labelInicio.pack()
+    labelInicio.place(x=510, y=410)
+    labelStop.pack()
+    labelStop.place(x=728, y=410)
+    labelGraph.pack()
+    labelGraph.place(x=630, y=410)
+    labelConf.pack()
+    labelConf.place(x=230, y=333)
+    labelLog.pack()
+    labelLog.place(x=950, y=333)
     entry.pack()
-    entry.place(x=200, y=0)
+    entry.place(x=5, y=0)
     window.title("HIDS")
     btnGraph = tk.Button(window, text="Abrir grafico", command=graph)
     btnGraph.pack(pady=15, padx=15)
-    btnGraph.place(x=105, y=55)
+    btnGraph.place(x=628, y=435)
     btnIniciar = tk.Button(window, text="Iniciar",
                            command=initExam)
     btnIniciar.pack(pady=15, padx=15)
-    btnIniciar.place(x=105, y=5)
-    btnCerrar = tk.Button(window, text="Cerrar", command=stop)
+    btnIniciar.place(x=535, y=435)
+    btnCerrar = tk.Button(window, text="Parar", command=stop)
     btnCerrar.pack(pady=15, padx=15)
-    btnCerrar.place(x=105, y=30)
-    btnGuardar = tk.Button(window, text="Guardar", command=exportConfig)
+    btnCerrar.place(x=751, y=435)
+    btnGuardar = tk.Button(window, text="Guardar configuración", command=exportConfig)
     btnGuardar.pack(pady=15, padx=15)
-    btnGuardar.place(x=720, y=330)
+    btnGuardar.place(x=532, y=330)
     logBox.pack()
-    logBox.place(x=800, y=0)
+    logBox.place(x=670, y=0)
     window.protocol("WM_DELETE_WINDOW", stopAndClose)
     window.mainloop()
 
@@ -310,10 +316,8 @@ def stop():
     toaster.show_toast(
         "HIDS", "Servicio interrumpido. El sistema NO está examinando los directorios.", threaded=True)
     global running
-    # if running == True:
     running = False
     logging.critical("EXAMEN INTERRUMPIDO")
-    # os._exit(1)
 
 
 def stopAndClose():
