@@ -669,3 +669,131 @@ INFO:10/28/2020 20:15:07: Number of files BAD: 1
 WARNING:10/28/2020 20:15:07: BAD integrity files: 
            DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
 CRITICAL:10/28/2020 20:19:27: HIDS CERRADO
+INFO:10/28/2020 20:29:55: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:29:59: HIDS CERRADO
+INFO:10/28/2020 20:30:16: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:30:23: HIDS CERRADO
+INFO:10/28/2020 20:30:30: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:33:10: HIDS CERRADO
+INFO:10/28/2020 20:33:13: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:33:21: HIDS CERRADO
+INFO:10/28/2020 20:33:23: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:33:28: HIDS CERRADO
+INFO:10/28/2020 20:36:37: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:36:38: HIDS CERRADO
+INFO:10/28/2020 20:36:45: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:36:48: HIDS CERRADO
+INFO:10/28/2020 20:36:54: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:37:13: HIDS CERRADO
+INFO:10/28/2020 20:37:15: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:37:22: HIDS CERRADO
+INFO:10/28/2020 20:38:42: Archivo de configuración creado satisfactoriamente!
+CRITICAL:10/28/2020 20:39:16: HIDS CERRADO
+ERROR:10/28/2020 20:39:21: Error al importar la configuración!
+CRITICAL:10/28/2020 20:39:22: HIDS CERRADO
+INFO:10/28/2020 20:39:31: Archivo de configuración creado satisfactoriamente!
+CRITICAL:10/28/2020 20:39:44: HIDS CERRADO
+ERROR:10/28/2020 20:40:00: Error al importar la configuración!
+CRITICAL:10/28/2020 20:40:02: HIDS CERRADO
+ERROR:10/28/2020 20:40:06: Error al importar la configuración!
+CRITICAL:10/28/2020 20:40:08: HIDS CERRADO
+ERROR:10/28/2020 20:40:33: Error al importar la configuración!
+CRITICAL:10/28/2020 20:40:45: HIDS CERRADO
+ERROR:10/28/2020 20:41:02: Error al importar la configuración!
+CRITICAL:10/28/2020 20:41:04: HIDS CERRADO
+ERROR:10/28/2020 20:41:34: Error al importar la configuración!
+CRITICAL:10/28/2020 20:41:42: HIDS CERRADO
+ERROR:10/28/2020 20:41:53: Error al importar la configuración!
+CRITICAL:10/28/2020 20:42:02: HIDS CERRADO
+INFO:10/28/2020 20:42:04: La configuración se ha importado correctamente!
+CRITICAL:10/28/2020 20:42:09: HIDS CERRADO
+INFO:10/28/2020 20:50:50: La configuración se ha importado correctamente!
+INFO:10/28/2020 20:50:53: Hashes importados correctamente!
+INFO:10/28/2020 20:50:53: Calculando los hashes de los archivos...
+INFO:10/28/2020 20:50:54: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 20:50:54: Number of files OK: 2874
+INFO:10/28/2020 20:50:54: Number of files BAD: 1
+WARNING:10/28/2020 20:50:54: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+CRITICAL:10/28/2020 20:51:00: HIDS CERRADO
+INFO:10/28/2020 20:52:16: La configuración se ha importado correctamente!
+INFO:10/28/2020 20:52:18: Hashes importados correctamente!
+INFO:10/28/2020 20:52:18: Calculando los hashes de los archivos...
+INFO:10/28/2020 20:52:19: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 20:52:19: Number of files OK: 2874
+INFO:10/28/2020 20:52:19: Number of files BAD: 1
+WARNING:10/28/2020 20:52:19: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+INFO:10/28/2020 20:52:31: Calculando los hashes de los archivos...
+INFO:10/28/2020 20:52:33: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 20:52:33: Number of files OK: 2874
+INFO:10/28/2020 20:52:33: Number of files BAD: 1
+WARNING:10/28/2020 20:52:33: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+INFO:10/28/2020 20:52:45: Calculando los hashes de los archivos...
+INFO:10/28/2020 20:52:46: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 20:52:46: Number of files OK: 2874
+INFO:10/28/2020 20:52:46: Number of files BAD: 1
+WARNING:10/28/2020 20:52:46: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+CRITICAL:10/28/2020 20:52:51: EXAMEN INTERRUMPIDO
+CRITICAL:10/28/2020 21:10:02: EXAMEN INTERRUMPIDO
+CRITICAL:10/28/2020 21:10:06: HIDS CERRADO
+INFO:10/28/2020 21:15:33: La configuración se ha importado correctamente!
+INFO:10/28/2020 21:15:44: Hashes importados correctamente!
+INFO:10/28/2020 21:15:44: Calculando los hashes de los archivos...
+INFO:10/28/2020 21:15:45: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 21:15:45: Number of files OK: 2874
+INFO:10/28/2020 21:15:45: Number of files BAD: 1
+WARNING:10/28/2020 21:15:45: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+INFO:10/28/2020 21:15:58: Calculando los hashes de los archivos...
+INFO:10/28/2020 21:15:59: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 21:15:59: Number of files OK: 2874
+INFO:10/28/2020 21:15:59: Number of files BAD: 1
+WARNING:10/28/2020 21:15:59: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+CRITICAL:10/28/2020 21:16:10: EXAMEN INTERRUMPIDO
+CRITICAL:10/28/2020 21:16:11: HIDS CERRADO
+INFO:10/28/2020 21:16:56: La configuración se ha importado correctamente!
+INFO:10/28/2020 21:16:58: Hashes importados correctamente!
+INFO:10/28/2020 21:16:58: Calculando los hashes de los archivos...
+INFO:10/28/2020 21:17:00: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 21:17:00: Number of files OK: 2874
+INFO:10/28/2020 21:17:00: Number of files BAD: 1
+WARNING:10/28/2020 21:17:00: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+INFO:10/28/2020 21:17:12: Calculando los hashes de los archivos...
+INFO:10/28/2020 21:17:14: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 21:17:14: Number of files OK: 2874
+INFO:10/28/2020 21:17:14: Number of files BAD: 1
+WARNING:10/28/2020 21:17:14: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+CRITICAL:10/28/2020 21:17:19: EXAMEN INTERRUMPIDO
+CRITICAL:10/28/2020 21:17:20: HIDS CERRADO
+INFO:10/28/2020 21:18:25: La configuración se ha importado correctamente!
+INFO:10/28/2020 21:18:27: Hashes importados correctamente!
+INFO:10/28/2020 21:18:27: Calculando los hashes de los archivos...
+INFO:10/28/2020 21:18:28: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 21:18:28: Number of files OK: 2874
+INFO:10/28/2020 21:18:28: Number of files BAD: 1
+WARNING:10/28/2020 21:18:28: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+INFO:10/28/2020 21:18:40: Calculando los hashes de los archivos...
+INFO:10/28/2020 21:18:41: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 21:18:41: Number of files OK: 2874
+INFO:10/28/2020 21:18:41: Number of files BAD: 1
+WARNING:10/28/2020 21:18:41: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+CRITICAL:10/28/2020 21:18:49: EXAMEN INTERRUMPIDO
+CRITICAL:10/28/2020 21:18:51: HIDS CERRADO
+INFO:10/28/2020 21:20:00: La configuración se ha importado correctamente!
+INFO:10/28/2020 21:20:03: Hashes importados correctamente!
+INFO:10/28/2020 21:20:03: Calculando los hashes de los archivos...
+INFO:10/28/2020 21:20:04: Hashes calculados satisfactoriamente!
+INFO:10/28/2020 21:20:04: Number of files OK: 2874
+INFO:10/28/2020 21:20:04: Number of files BAD: 1
+WARNING:10/28/2020 21:20:04: BAD integrity files: 
+           DIR: C:/Users/Marcel/OneDrive - UNIVERSIDAD DE SEVILLA/GitHub/shopping-cart-nfc/README.md HASHES DOESN'T MATCH!
+CRITICAL:10/28/2020 21:20:15: EXAMEN INTERRUMPIDO
+CRITICAL:10/28/2020 21:20:17: HIDS CERRADO

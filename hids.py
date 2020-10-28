@@ -26,6 +26,7 @@ interval = 0
 running = bool()
 window = tk.Tk()
 entry = ScrolledText(window, width=70, height=20)
+logBox = ScrolledText(window, width=80, height=20)
 toaster = ToastNotifier()
 
 
@@ -53,6 +54,20 @@ def folderHash(pathName):
                     fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.md5(
                         fileRaw.read()).hexdigest()
     return fileAndHash
+
+
+def readLogFile():
+    text = str()
+    with open("log.log", "r") as reader:
+        text = reader.read()
+    return text
+
+
+def logBoxContainer():
+    logBox.delete("1.0", tk.END)
+    text = readLogFile()
+    logBox.insert(tk.INSERT, text)
+    logBox.insert(tk.END, "")
 
 
 def importConfig():
@@ -88,7 +103,7 @@ def importConfig():
         try:
             with open("config.config", "w") as file:
                 file.write(
-                    "# Agregar los directorios a proteger, separados por una coma\n# Intervalo de tiempo entre examenes en minutos\n# Guardar la configuracion antes de iniciar el examen")
+                    "# Agregar los directorios a proteger, separados por una coma\n# Intervalo de tiempo entre examenes en minutos\n# Guardar la configuracion antes de iniciar el examen\n")
                 for config in configs:
                     file.write(config)
             logging.info("Archivo de configuración creado satisfactoriamente!")
@@ -214,6 +229,9 @@ def run():
     if running == True:
         calculateHashedFiles()
         compareHashes()
+        logBox.config(state=tk.NORMAL)
+        logBoxContainer()  # AQUI EL LOG BOX
+        logBox.config(state=tk.DISABLED)
         # graph()
         threading.Timer(float(interval), run).start()
 
@@ -256,7 +274,7 @@ def sendEmail(bodyMsg):
 
 def gui():
     window.resizable(0, 0)
-    window.geometry("900x512")
+    window.geometry("1500x512")
     label1 = tk.Label(window, text="Iniciar el examen: ")
     label2 = tk.Label(window, text="Parar el examen: ")
     label3 = tk.Label(window, text="Abrir gráfico: ")
@@ -281,7 +299,9 @@ def gui():
     btnCerrar.place(x=105, y=30)
     btnGuardar = tk.Button(window, text="Guardar", command=exportConfig)
     btnGuardar.pack(pady=15, padx=15)
-    btnGuardar.place(x=720, y=350)
+    btnGuardar.place(x=720, y=330)
+    logBox.pack()
+    logBox.place(x=800, y=0)
     window.protocol("WM_DELETE_WINDOW", stopAndClose)
     window.mainloop()
 
