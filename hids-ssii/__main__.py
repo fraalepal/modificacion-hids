@@ -58,8 +58,11 @@ def folderHash(pathName):
 
 def readLogFile():
     text = str()
-    with open("log.log", "r") as reader:
-        text = reader.read()
+    if (os.path.exists(os.path.join('c:/top_secret', 'log.log'))):
+        with open(os.path.join('c:/top_secret', 'log.log')) as reader:
+            text = reader.read()
+    else:
+        f = open(os.path.join('C:\\top_secret', 'log.log'), "x")
     return text
 
 
@@ -77,9 +80,11 @@ def importConfig():
     y en caso de que ya exista (que sería siempre menos la primera vez que se ejecute el script)
     carga la configuración de dicho archivo y la importa al diccionario del script llamado 'configDict',
     mediante este diccionario vamos a poder manejar dichas opciones indicadas en el archivo de configuración"""
-    if (os.path.exists("config.config")):
+    path = os.path.abspath('.').split(os.path.sep)[
+        0]+os.path.sep+"top_secret\config.config"
+    if (os.path.exists(path)):
         try:
-            with open("config.config", "r") as config:
+            with open(path, "r") as config:
                 for line in config:
                     if "#" not in line:
                         confSplitted = line.split("=")
@@ -93,7 +98,7 @@ def importConfig():
                         entry.insert(tk.INSERT, line)
                     entry.insert(tk.END, "")
             logging.info("La configuración se ha importado correctamente!")
-            #entry.insert(tk.END, " in ScrolledText")
+            # entry.insert(tk.END, " in ScrolledText")
             # print(configDict)
         except:
             logging.error("Error al importar la configuración!")
@@ -101,9 +106,9 @@ def importConfig():
         configs = ["\nSelected Hash mode=\n",
                    "Directories to protect=\n", "Verify interval=\n", "email=\n", "smtpPass=\n", "toEmail=\n"]
         try:
-            with open("config.config", "w") as file:
+            with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\config.config", "w") as file:
                 file.write(
-                    "# Agregar los directorios a proteger, separados por una coma\n# Intervalo de tiempo entre examenes en minutos\n# Guardar la configuracion antes de iniciar el examen\n")
+                    "# Agregar los directorios a proteger, separados por una coma\n# Intervalo de tiempo entre examenes en minutos\n# Guardar la configuracion antes de iniciar el examen")
                 for config in configs:
                     file.write(config)
             logging.info("Archivo de configuración creado satisfactoriamente!")
@@ -111,13 +116,14 @@ def importConfig():
         except:
             logging.error(
                 "Error al crear el archivo de configuración, problema con los permisos?")
+        importConfig()
 
 
 def exportConfig():
     """ Params: NONE """
     """ Return: NONE """
-    """ Escribe en el archivo 'config.config' las configuraciones reflejadas en la caja de texto del script """
-    with open("config.config", "w") as config:
+    """ Escribe en el archivo 'C:\top_secret\config.config' las configuraciones reflejadas en la caja de texto del script """
+    with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\config.config", "w") as config:
         config.write(entry.get("1.0", tk.END))
 
 
@@ -131,7 +137,7 @@ def exportHashedFiles():
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
         filesAndHashes.update(folderHash(path))
-    with open("hashes.hash", "w") as writer:
+    with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\hashes.hash", "w") as writer:
         for key, value in filesAndHashes.items():
             writer.write(key + "=" + value + "\n")
     logging.info("Hashes exportados correctamente")
@@ -140,9 +146,9 @@ def exportHashedFiles():
 def importHashedFiles():
     """ Params: NONE """
     """ Return: NONE """
-    """ Lee el archivo 'hashes.hash' y carga cada una de las entradas en el diccionario 'newFilesAndHashes' presente en el script """
+    """ Lee el archivo 'C:\top_secret\hashes.hash' y carga cada una de las entradas en el diccionario 'newFilesAndHashes' presente en el script """
     try:
-        with open("hashes.hash", "r") as reader:
+        with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\hashes.hash", "r") as reader:
             line = reader.readline()
             while line:
                 splittedLineList = line.split("=")
@@ -251,25 +257,28 @@ def initExam():
     global interval
     interval = int(configDict["Verify interval"])
     # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos -> Si no, ejecutar exportHashedFiles()
-    # exportHashedFiles()
+    exportHashedFiles()
     importHashedFiles()
     runHandle()
 
 
 def sendEmail(bodyMsg):
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.ehlo()
-    server.starttls()
-    server.ehlo()
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
 
-    server.login(configDict["email"], configDict["smtpPass"])
-    subject = "¡Problema con la integridad de los archivos!"
-    body = bodyMsg
-    msg = f"Subject: {subject}\n\n{body}".encode('utf-8')
-    emailList = configDict["toEmail"].split(",")
-    for email in emailList:
-        server.sendmail("empresa@empresa.com", email, msg)
-    server.quit()
+        server.login(configDict["email"], configDict["smtpPass"])
+        subject = "¡Problema con la integridad de los archivos!"
+        body = bodyMsg
+        msg = f"Subject: {subject}\n\n{body}".encode('utf-8')
+        emailList = configDict["toEmail"].split(",")
+        for email in emailList:
+            server.sendmail("gigi.dan2011@gmail.com", email, msg)
+        server.quit()
+    except:
+        print("Ha ocurrido un error enviando el mensaje.")
 
 
 def gui():
@@ -329,8 +338,12 @@ def stopAndClose():
 
 
 def iniciar():
+
+    readLogFile()
+    filename = os.path.abspath('.').split(os.path.sep)[
+        0]+os.path.sep+"top_secret\log.log"
     logging.basicConfig(format='%(levelname)s:%(asctime)s: %(message)s',
-                        datefmt='%m/%d/%Y %H:%M:%S', filename='log.log', level=logging.INFO)
+                        datefmt='%m/%d/%Y %H:%M:%S', filename=filename, level=logging.INFO)
     importConfig()
     gui()
 
