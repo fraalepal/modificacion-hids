@@ -303,7 +303,8 @@ def gui():
     btnCerrar = tk.Button(window, text="Parar", command=stop)
     btnCerrar.pack(pady=15, padx=15)
     btnCerrar.place(x=751, y=435)
-    btnGuardar = tk.Button(window, text="Guardar configuración", command=exportConfig)
+    btnGuardar = tk.Button(
+        window, text="Guardar configuración", command=exportConfig)
     btnGuardar.pack(pady=15, padx=15)
     btnGuardar.place(x=532, y=330)
     logBox.pack()
@@ -334,4 +335,5 @@ def iniciar():
     gui()
 
 
-iniciar()
+if __name__ == "__main__":
+    iniciar()
