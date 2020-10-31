@@ -13,6 +13,7 @@ from threading import Thread
 from tkinter.scrolledtext import ScrolledText
 from win10toast import ToastNotifier
 import smtplib
+from pathlib import Path
 
 # GLOBALS
 configDict = dict()
@@ -39,8 +40,6 @@ def folderHash(pathName):
     for root, dirs, files in os.walk(pathName):
         for file in files:
             with open(os.path.join(root, file), "rb") as fileRaw:
-                # Habria q hacer algo para poder elegir entre multiples algoritmos de hash
-                # de todas formas he añadido la opcion de elegir en el archivo config.config
                 if(configDict["Selected Hash mode"] == "sha3_256"):
                     fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_256(
                         fileRaw.read()).hexdigest()
@@ -338,7 +337,10 @@ def stopAndClose():
 
 
 def iniciar():
-
+    try:
+        Path("C:\\top_secret").mkdir(parents=True)
+    except:
+        pass
     readLogFile()
     filename = os.path.abspath('.').split(os.path.sep)[
         0]+os.path.sep+"top_secret\log.log"
