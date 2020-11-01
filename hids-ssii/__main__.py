@@ -40,16 +40,16 @@ def folderHash(pathName):
     for root, dirs, files in os.walk(pathName):
         for file in files:
             with open(os.path.join(root, file), "rb") as fileRaw:
-                if(configDict["Selected Hash mode"] == "sha3_256"):
+                if(configDict["Selected Hash mode"].lower() == "sha3_256"):
                     fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_256(
                         fileRaw.read()).hexdigest()
-                elif(configDict["Selected Hash mode"] == "sha3_384"):
+                elif(configDict["Selected Hash mode"].lower() == "sha3_384"):
                     fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_384(
                         fileRaw.read()).hexdigest()
-                elif(configDict["Selected Hash mode"] == "sha3_512"):
+                elif(configDict["Selected Hash mode"].lower() == "sha3_512"):
                     fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_512(
                         fileRaw.read()).hexdigest()
-                elif(configDict["Selected Hash mode"] == "md5"):
+                elif(configDict["Selected Hash mode"].lower() == "md5"):
                     fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.md5(
                         fileRaw.read()).hexdigest()
     return fileAndHash
@@ -132,6 +132,8 @@ def exportHashedFiles():
     """ Comprueba las rutas que hemos indicado en el archivo de configuración y carga todos los archivos de cada una
     de ellas gracias a la función anterior 'folderHash', una vez hecho esto crea un archivo 'hashes.hash' si no lo hay y escribe
     en el todas las rutas junto a su hash, separadas mediante un simbolo '=' """
+    # TIME
+    begin_time = datetime.datetime.now()
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
@@ -139,7 +141,9 @@ def exportHashedFiles():
     with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\hashes.hash", "w") as writer:
         for key, value in filesAndHashes.items():
             writer.write(key + "=" + value + "\n")
-    logging.info("Hashes exportados correctamente")
+    end = datetime.datetime.now() - begin_time
+    strr = "Hashes exportados correctamente en: " + str(end)
+    logging.info(strr)
 
 
 def importHashedFiles():
@@ -165,12 +169,13 @@ def calculateHashedFiles():
     """ Return: NONE """
     """ Calcula los hashes de los archivos nuevamente, y reutilizamos el diccionario creado al principio 'filesAndHashes' esto servirá
     para comparar los items de este diccionario con los del 'newFilesAndHashes'. """
+
     logging.info("Calculando los hashes de los archivos...")
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
         filesAndHashes.update(folderHash(path))
-    logging.info("Hashes calculados satisfactoriamente!")
+    strr = "Hashes calculados satisfactoriamente!"
 
 
 def compareHashes():
@@ -186,16 +191,16 @@ def compareHashes():
             numberOfFilesOK += 1
         else:
             numberOfFilesNoOk += 1
-            cadena = "DIR: " + str(key) + " HASHES DOESN'T MATCH!"
+            cadena = "DIR: " + str(key) + " ¡Los hashes no coinciden!"
             listOfNoMatches.append(cadena)
     badIntegrity.append(numberOfFilesNoOk)
     graphDate.append(datetime.datetime.now().strftime("%M"))
-    str1 = "Number of files OK: " + str(numberOfFilesOK)
-    str2 = "Number of files BAD: " + str(numberOfFilesNoOk)
+    str1 = "Número de archivos OK: " + str(numberOfFilesOK)
+    str2 = "Número de archivos MODIFICADOS: " + str(numberOfFilesNoOk)
     logging.info(str1)
     logging.info(str2)
     if(listOfNoMatches):
-        str3 = "BAD integrity files: "
+        str3 = "Archivos con integridad comprometida: "
         noMatchesToPrint = list()
         for entry in listOfNoMatches:
             noMatchesToPrint.append("           "+entry)
@@ -223,7 +228,7 @@ def graph():
                  color_discrete_sequence=[
                      'red']*3,
                  title=layout_title,
-                 labels={'x': 'Dia', 'y': 'Numero de fallos de integridad'})
+                 labels={'x': 'Hora', 'y': 'Numero de fallos de integridad'})
     fig.show()
 
 
@@ -232,6 +237,7 @@ def run():
     """ Return: NONE """
     """  """
     if running == True:
+        begin_time = datetime.datetime.now()
         calculateHashedFiles()
         compareHashes()
         logBox.config(state=tk.NORMAL)
@@ -239,6 +245,9 @@ def run():
         logBox.config(state=tk.DISABLED)
         # graph()
         threading.Timer(float(interval), run).start()
+        end = datetime.datetime.now() - begin_time
+        strr = "Comprobación realizada con éxito en: " + str(end)
+        logging.info(strr)
 
 
 def runHandle():
