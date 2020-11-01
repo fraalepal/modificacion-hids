@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
     name='hids-ssii',         # How you named your package folder (MyLib)
     packages=['hids-ssii'],   # Chose the same as "name"
-    version='1.3',      # Start with a small number and increase it with every change you make
+    version='1.5',      # Start with a small number and increase it with every change you make
     # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     license='MIT',
     # Give a short description about your library
