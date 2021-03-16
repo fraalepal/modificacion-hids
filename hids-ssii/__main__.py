@@ -14,6 +14,7 @@ from tkinter.scrolledtext import ScrolledText
 from win10toast import ToastNotifier
 import smtplib
 from pathlib import Path
+from arbol import Arbol
 
 # GLOBALS
 configDict = dict()
@@ -29,31 +30,31 @@ window = tk.Tk()
 entry = ScrolledText(window, width=80, height=20)
 logBox = ScrolledText(window, width=80, height=20)
 toaster = ToastNotifier()
+arbol = Arbol()
 
-
+'Arbolito binario? :C'
 def folderHash(pathName):
     """ Params: ruta """
     """ Return: devuelve un diccionario formato por la ruta y el hash: key=ruta, value=hash """
     """ Se le pasa una ruta y viaja por todos los archivos y las subrutas de dicha ruta y calcula los hashes
     de cada uno de los archivos encontrados """
-    fileAndHash = dict()
+    global arbol #Se pone global para dejar claro que vamos a utilizar una varible global y evitar que busque una variable local en su lugar
     for root, dirs, files in os.walk(pathName):
         for file in files:
-            with open(os.path.join(root, file), "rb") as fileRaw:
+            with open(os.path.join(root, file), "rb") as fileRaw:   
                 if(configDict["Selected Hash mode"].lower() == "sha3_256"):
-                    fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_256(
-                        fileRaw.read()).hexdigest()
+                    arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.sha3_256(
+                        fileRaw.read()).hexdigest()))
                 elif(configDict["Selected Hash mode"].lower() == "sha3_384"):
-                    fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_384(
-                        fileRaw.read()).hexdigest()
+                    arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.sha3_384(
+                        fileRaw.read()).hexdigest()))
                 elif(configDict["Selected Hash mode"].lower() == "sha3_512"):
-                    fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.sha3_512(
-                        fileRaw.read()).hexdigest()
-                elif(configDict["Selected Hash mode"].lower() == "md5"):
-                    fileAndHash[os.path.join(root, file).replace("\\", "/")] = hashlib.md5(
-                        fileRaw.read()).hexdigest()
-    return fileAndHash
-
+                    arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.sha3_512(
+                        fileRaw.read()).hexdigest()))
+                #Por defecto dejaremos cifrado md5
+                else:
+                    arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.md5(
+                        fileRaw.read()).hexdigest()))        
 
 def readLogFile():
     text = str()
@@ -137,15 +138,15 @@ def exportHashedFiles():
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
-        filesAndHashes.update(folderHash(path))
-    with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\hashes.hash", "w") as writer:
-        for key, value in filesAndHashes.items():
-            writer.write(key + "=" + value + "\n")
-    end = datetime.datetime.now() - begin_time
+        folderHash(path)
+    
+    end = datetime.datetime.now()-begin_time
     strr = "Hashes exportados correctamente en: " + str(end)
+    print("Hemos creado el árbol en: " + str(end))
+    arbol.inorden()
     logging.info(strr)
 
-
+#Cambiar
 def importHashedFiles():
     """ Params: NONE """
     """ Return: NONE """
@@ -177,7 +178,7 @@ def calculateHashedFiles():
         filesAndHashes.update(folderHash(path))
     strr = "Hashes calculados satisfactoriamente!"
 
-
+#Cambiar
 def compareHashes():
     """ Params: NONE """
     """ Return: NONE """
@@ -283,7 +284,7 @@ def sendEmail(bodyMsg):
         msg = f"Subject: {subject}\n\n{body}".encode('utf-8')
         emailList = configDict["toEmail"].split(",")
         for email in emailList:
-            server.sendmail("gigi.dan2011@gmail.com", email, msg)
+            server.sendmail("curalepal@gmail.com", email, msg)
         server.quit()
     except:
         print("Ha ocurrido un error enviando el mensaje.")
@@ -295,6 +296,7 @@ def gui():
     labelInicio = tk.Label(window, text="Iniciar el examen ")
     labelStop = tk.Label(window, text="Parar el examen ")
     labelGraph = tk.Label(window, text="Abrir gráfico ")
+    labelHashes = tk.Label(window, text="Generar hashes ")
     labelConf = tk.Label(window, text="Fichero de configuración")
     labelLog = tk.Label(window, text="Fichero de LOG")
     labelInicio.pack()
@@ -303,6 +305,8 @@ def gui():
     labelStop.place(x=728, y=410)
     labelGraph.pack()
     labelGraph.place(x=630, y=410)
+    labelHashes.pack()
+    labelHashes.place(x=400, y=410)
     labelConf.pack()
     labelConf.place(x=230, y=333)
     labelLog.pack()
@@ -310,6 +314,9 @@ def gui():
     entry.pack()
     entry.place(x=5, y=0)
     window.title("HIDS")
+    btnHashes = tk.Button(window, text="Crear hashes", command=exportHashedFiles)
+    btnHashes.pack(pady=15, padx=15)
+    btnHashes.place(x=400, y=435)
     btnGraph = tk.Button(window, text="Abrir grafico", command=graph)
     btnGraph.pack(pady=15, padx=15)
     btnGraph.place(x=628, y=435)
