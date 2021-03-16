@@ -1,11 +1,3 @@
-# HIDS
-Simple HIDS in Python
-
-## Usage
-`sudo pip install hids-ssii`
-
-`python -m hids-ssii`
-
 
 ## TO-DO
 Cambiar la estructura de busqueda de ficheros a una que use un árbol binario
