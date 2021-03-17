@@ -18,6 +18,14 @@ class Arbol:
             else:
                 self.__agregar_recursivo(nodo.derecha, dato)
 
+    def __recorre_arbol(self, nodo, lista):
+        if nodo is not None:
+            if nodo.izquierda is not None:
+                lista.append(self.__recorre_arbol(nodo.izquierda, lista))
+            if nodo.derecha is not None:
+                lista.append(self.__recorre_arbol(nodo.derecha, lista))
+            return nodo.dato
+
     def __inorden_recursivo(self, nodo):
         if nodo is not None:
             self.__inorden_recursivo(nodo.izquierda)
@@ -53,6 +61,12 @@ class Arbol:
             self.raiz = Nodo(dato)
         else:
             self.__agregar_recursivo(self.raiz, dato)
+
+    def recorrer(self):
+        lista = []
+        lista.append(self.raiz.dato)
+        self.__recorre_arbol(self.raiz, lista)
+        return lista
 
     def inorden(self):
         print("Imprimiendo árbol inorden: ")

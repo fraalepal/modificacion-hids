@@ -18,21 +18,19 @@ from arbol import Arbol
 
 # GLOBALS
 configDict = dict()
-filesAndHashes = dict()
-newFilesAndHashes = dict()
 badIntegrity = list()
 graphDate = list()
-cantidadDeArchivos = [0, 1000]
+arbol = Arbol()
 now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-interval = 0
+verifyInterval = 0
+reportInterval = 0
 running = bool()
 window = tk.Tk()
 entry = ScrolledText(window, width=80, height=20)
 logBox = ScrolledText(window, width=80, height=20)
 toaster = ToastNotifier()
-arbol = Arbol()
 
-'Arbolito binario? :C'
+'Estructura de archivo aarbol binario'
 def folderHash(pathName):
     """ Params: ruta """
     """ Return: devuelve un diccionario formato por la ruta y el hash: key=ruta, value=hash """
@@ -42,20 +40,18 @@ def folderHash(pathName):
     for root, dirs, files in os.walk(pathName):
         for file in files:
             with open(os.path.join(root, file), "rb") as fileRaw:   
-                if(configDict["Selected Hash mode"].lower() == "sha3_256"):
-                    arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.sha3_256(
+                if(configDict["Selected Hash mode"].lower() == "sha3_512"):
+                    arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.sha3_512(
                         fileRaw.read()).hexdigest()))
                 elif(configDict["Selected Hash mode"].lower() == "sha3_384"):
                     arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.sha3_384(
-                        fileRaw.read()).hexdigest()))
-                elif(configDict["Selected Hash mode"].lower() == "sha3_512"):
-                    arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.sha3_512(
-                        fileRaw.read()).hexdigest()))
-                #Por defecto dejaremos cifrado md5
+                        fileRaw.read()).hexdigest()))                    
+                #Por defecto dejaremos cifrado sha-256
                 else:
-                    arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.md5(
-                        fileRaw.read()).hexdigest()))        
+                    arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.sha3_256(
+                        fileRaw.read()).hexdigest()))
 
+                        
 def readLogFile():
     text = str()
     if (os.path.exists(os.path.join('c:/top_secret', 'log.log'))):
@@ -104,7 +100,7 @@ def importConfig():
             logging.error("Error al importar la configuración!")
     else:
         configs = ["\nSelected Hash mode=\n",
-                   "Directories to protect=\n", "Verify interval=\n", "email=\n", "smtpPass=\n", "toEmail=\n"]
+                   "Directories to protect=\n", "Verify interval=\n", "Report interval=\n" "email=\n", "smtpPass=\n", "toEmail=\n"]
         try:
             with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\config.config", "w") as file:
                 file.write(
@@ -138,45 +134,11 @@ def exportHashedFiles():
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
-        folderHash(path)
-    
+        folderHash(path) 
     end = datetime.datetime.now()-begin_time
     strr = "Hashes exportados correctamente en: " + str(end)
     print("Hemos creado el árbol en: " + str(end))
-    arbol.inorden()
     logging.info(strr)
-
-#Cambiar
-def importHashedFiles():
-    """ Params: NONE """
-    """ Return: NONE """
-    """ Lee el archivo 'C:\top_secret\hashes.hash' y carga cada una de las entradas en el diccionario 'newFilesAndHashes' presente en el script """
-    try:
-        with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\hashes.hash", "r") as reader:
-            line = reader.readline()
-            while line:
-                splittedLineList = line.split("=")
-                newFilesAndHashes[splittedLineList[0].replace(
-                    "\n", "")] = splittedLineList[1].replace("\n", "")
-                line = reader.readline()
-        logging.info("Hashes importados correctamente!")
-    except:
-        logging.error("Error al importar los hashes!")
-        # print(newFilesAndHashes)
-
-
-def calculateHashedFiles():
-    """ Params: NONE """
-    """ Return: NONE """
-    """ Calcula los hashes de los archivos nuevamente, y reutilizamos el diccionario creado al principio 'filesAndHashes' esto servirá
-    para comparar los items de este diccionario con los del 'newFilesAndHashes'. """
-
-    logging.info("Calculando los hashes de los archivos...")
-    splittedPathsToHash = configDict["Directories to protect"].split(
-        ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
-    for path in splittedPathsToHash:
-        filesAndHashes.update(folderHash(path))
-    strr = "Hashes calculados satisfactoriamente!"
 
 #Cambiar
 def compareHashes():
@@ -187,12 +149,21 @@ def compareHashes():
     numberOfFilesOK = int()
     numberOfFilesNoOk = int()
     listOfNoMatches = list()
-    for key, value in filesAndHashes.items():
-        if newFilesAndHashes[key] == value:
+    tupleTree = arbol.recorrer()
+    for path, treeHash in tupleTree:
+        with open(os.path.join(path), "rb") as fileRaw:   
+                if(configDict["Selected Hash mode"].lower() == "sha3_512"):
+                    nuevoHash = hashlib.sha3_512(fileRaw.read()).hexdigest()
+                elif(configDict["Selected Hash mode"].lower() == "sha3_384"):
+                    nuevoHash = hashlib.sha3_384(fileRaw.read()).hexdigest()                    
+                #Por defecto dejaremos cifrado sha-256
+                else:
+                    nuevoHash = hashlib.sha3_256(fileRaw.read()).hexdigest()
+        if nuevoHash == treeHash:
             numberOfFilesOK += 1
         else:
             numberOfFilesNoOk += 1
-            cadena = "DIR: " + str(key) + " ¡Los hashes no coinciden!"
+            cadena = "DIR: " + str(path) + " ¡Los hashes no coinciden!"
             listOfNoMatches.append(cadena)
     badIntegrity.append(numberOfFilesNoOk)
     graphDate.append(datetime.datetime.now().strftime("%M"))
@@ -200,6 +171,7 @@ def compareHashes():
     str2 = "Número de archivos MODIFICADOS: " + str(numberOfFilesNoOk)
     logging.info(str1)
     logging.info(str2)
+
     if(listOfNoMatches):
         str3 = "Archivos con integridad comprometida: "
         noMatchesToPrint = list()
@@ -207,11 +179,10 @@ def compareHashes():
             noMatchesToPrint.append("           "+entry)
         logging.warning(str3 + "\n" + '\n'.join(noMatchesToPrint))
         toaster.show_toast(
-            "HIDS", "Hay un problema integridad. Revisar LOG.", duration=interval, threaded=True)
+            "HIDS", "Problema de integridad detectado. Revisar LOG.", duration=verifyInterval, threaded=True)
         sendEmail(str3 + "\n" + '\n'.join(noMatchesToPrint))
-    else:
-        toaster.show_toast(
-            "HIDS", "Examen finalizado. Se mantiene la integridad.", duration=interval, threaded=True)
+
+    toaster.show_toast("HIDS", "Examen finalizado. Reporte generado.", duration=reportInterval, threaded=True)
 
 
 def graph():
@@ -237,15 +208,15 @@ def run():
     """ Params: NONE """
     """ Return: NONE """
     """  """
+    
     if running == True:
         begin_time = datetime.datetime.now()
-        calculateHashedFiles()
         compareHashes()
         logBox.config(state=tk.NORMAL)
         logBoxContainer()  # AQUI EL LOG BOX
         logBox.config(state=tk.DISABLED)
         # graph()
-        threading.Timer(float(interval), run).start()
+        threading.Timer(float(verifyInterval), run).start()
         end = datetime.datetime.now() - begin_time
         strr = "Comprobación realizada con éxito en: " + str(end)
         logging.info(strr)
@@ -263,11 +234,12 @@ def initExam():
     console.setLevel(100)
     root_logger = logging.getLogger("")
     root_logger.addHandler(console)
-    global interval
-    interval = int(configDict["Verify interval"])
+    global verifyInterval
+    global reportInterval
+    verifyInterval = int(configDict["Verify interval"])
+    reportInterval = int(configDict["Report interval"])
     # supuestamente el admin nos pasa a nosotros el hasheado de todos los archivos -> Si no, ejecutar exportHashedFiles()
     exportHashedFiles()
-    importHashedFiles()
     runHandle()
 
 
