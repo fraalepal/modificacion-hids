@@ -1,4 +1,3 @@
-
 ## TO-DO
 Cambiar la estructura de busqueda de ficheros a una que use un árbol binario
 

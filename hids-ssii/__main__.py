@@ -11,16 +11,23 @@ import threading
 import sys
 from threading import Thread
 from tkinter.scrolledtext import ScrolledText
+from tkinter import *
+from tkinter import messagebox
 from win10toast import ToastNotifier
 import smtplib
 from pathlib import Path
 from arbol import Arbol
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
 # GLOBALS
 configDict = dict()
 badIntegrity = list()
 graphDate = list()
 arbol = Arbol()
+report = list()
 now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 verifyInterval = 0
 reportInterval = 0
@@ -29,13 +36,15 @@ window = tk.Tk()
 entry = ScrolledText(window, width=80, height=20)
 logBox = ScrolledText(window, width=80, height=20)
 toaster = ToastNotifier()
+username = "ssiigrupo23@gmail.com"
+password = "seguridad23"
+destinatario = "curalepal@gmail.com"
 
-'Estructura de archivo aarbol binario'
-def folderHash(pathName):
-    """ Params: ruta """
-    """ Return: devuelve un diccionario formato por la ruta y el hash: key=ruta, value=hash """
-    """ Se le pasa una ruta y viaja por todos los archivos y las subrutas de dicha ruta y calcula los hashes
-    de cada uno de los archivos encontrados """
+
+
+# Genera una estructura en forma de árbol binario a partir de los directorios escogidos para las comprobaciones de integridad, cada nodo del arbol es una tupla (ruta,hash)
+# Donde el hash se realizará de acuerdo al tipo indicado en el fichero de configuración.
+def binaryTreeHash(pathName):
     global arbol #Se pone global para dejar claro que vamos a utilizar una varible global y evitar que busque una variable local en su lugar
     for root, dirs, files in os.walk(pathName):
         for file in files:
@@ -51,14 +60,15 @@ def folderHash(pathName):
                     arbol.agregar((os.path.join(root, file).replace("\\", "/"),hashlib.sha3_256(
                         fileRaw.read()).hexdigest()))
 
-                        
+
+           
 def readLogFile():
     text = str()
-    if (os.path.exists(os.path.join('c:/top_secret', 'log.log'))):
-        with open(os.path.join('c:/top_secret', 'log.log')) as reader:
+    if (os.path.exists(os.path.join('c:/hids-ssii', 'log.log'))):
+        with open(os.path.join('c:/hids-ssii', 'log.log')) as reader:
             text = reader.read()
     else:
-        f = open(os.path.join('C:\\top_secret', 'log.log'), "x")
+        f = open(os.path.join('C:\\hids-ssii', 'log.log'), "x")
     return text
 
 
@@ -77,7 +87,7 @@ def importConfig():
     carga la configuración de dicho archivo y la importa al diccionario del script llamado 'configDict',
     mediante este diccionario vamos a poder manejar dichas opciones indicadas en el archivo de configuración"""
     path = os.path.abspath('.').split(os.path.sep)[
-        0]+os.path.sep+"top_secret\config.config"
+        0]+os.path.sep+"hids-ssii\config.config"
     if (os.path.exists(path)):
         try:
             with open(path, "r") as config:
@@ -102,7 +112,7 @@ def importConfig():
         configs = ["\nSelected Hash mode=\n",
                    "Directories to protect=\n", "Verify interval=\n", "Report interval=\n" "email=\n", "smtpPass=\n", "toEmail=\n"]
         try:
-            with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\config.config", "w") as file:
+            with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"hids-ssii\config.config", "w") as file:
                 file.write(
                     "# Agregar los directorios a proteger, separados por una coma\n# Intervalo de tiempo entre examenes en minutos\n# Guardar la configuracion antes de iniciar el examen")
                 for config in configs:
@@ -118,8 +128,8 @@ def importConfig():
 def exportConfig():
     """ Params: NONE """
     """ Return: NONE """
-    """ Escribe en el archivo 'C:\top_secret\config.config' las configuraciones reflejadas en la caja de texto del script """
-    with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"top_secret\config.config", "w") as config:
+    """ Escribe en el archivo 'C:\hids-ssii\config.config' las configuraciones reflejadas en la caja de texto del script """
+    with open(os.path.abspath('.').split(os.path.sep)[0]+os.path.sep+"hids-ssii\config.config", "w") as config:
         config.write(entry.get("1.0", tk.END))
 
 
@@ -127,20 +137,22 @@ def exportHashedFiles():
     """ Params: NONE """
     """ Return: NONE """
     """ Comprueba las rutas que hemos indicado en el archivo de configuración y carga todos los archivos de cada una
-    de ellas gracias a la función anterior 'folderHash', una vez hecho esto crea un archivo 'hashes.hash' si no lo hay y escribe
+    de ellas gracias a la función anterior 'binaryTreeHash', una vez hecho esto crea un archivo 'hashes.hash' si no lo hay y escribe
     en el todas las rutas junto a su hash, separadas mediante un simbolo '=' """
     # TIME
     begin_time = datetime.datetime.now()
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
-        folderHash(path) 
+        binaryTreeHash(path) 
     end = datetime.datetime.now()-begin_time
     strr = "Hashes exportados correctamente en: " + str(end)
     print("Hemos creado el árbol en: " + str(end))
     logging.info(strr)
 
+
 #Cambiar
+
 def compareHashes():
     """ Params: NONE """
     """ Return: NONE """
@@ -149,6 +161,7 @@ def compareHashes():
     numberOfFilesOK = int()
     numberOfFilesNoOk = int()
     listOfNoMatches = list()
+    global report
     tupleTree = arbol.recorrer()
     for path, treeHash in tupleTree:
         with open(os.path.join(path), "rb") as fileRaw:   
@@ -166,9 +179,17 @@ def compareHashes():
             cadena = "DIR: " + str(path) + " ¡Los hashes no coinciden!"
             listOfNoMatches.append(cadena)
     badIntegrity.append(numberOfFilesNoOk)
-    graphDate.append(datetime.datetime.now().strftime("%M"))
+
+    fechaHora = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+    graphDate.append(fechaHora)
     str1 = "Número de archivos OK: " + str(numberOfFilesOK)
     str2 = "Número de archivos MODIFICADOS: " + str(numberOfFilesNoOk)
+    
+    report.append(fechaHora + "\n")
+    report.append(str1 + "\n")
+    report.append(str2 + "\n")
+
+    #ESTE PODRÍA QUITARSE
     logging.info(str1)
     logging.info(str2)
 
@@ -180,55 +201,88 @@ def compareHashes():
         logging.warning(str3 + "\n" + '\n'.join(noMatchesToPrint))
         toaster.show_toast(
             "HIDS", "Problema de integridad detectado. Revisar LOG.", duration=verifyInterval, threaded=True)
-        sendEmail(str3 + "\n" + '\n'.join(noMatchesToPrint))
-
-    toaster.show_toast("HIDS", "Examen finalizado. Reporte generado.", duration=reportInterval, threaded=True)
-
-
-def graph():
-    """ Params: NONE """
-    """ Return: NONE """
-    """ Muestra una gráfica en el navegador en base a los datos de las dos listas 'badIntegrity' y 'graphDate' """
-    layout_title = "Evolución de la integridad de los archivos fecha:  " + \
-        str(datetime.datetime.now().strftime("%d-%m-%Y"))
-    df = pd.DataFrame(dict(
-        x=graphDate,
-        y=badIntegrity
-    ))
-    fig = px.bar(df,
-                 x='x', y='y',
-                 color_discrete_sequence=[
-                     'red']*3,
-                 title=layout_title,
-                 labels={'x': 'Hora', 'y': 'Numero de fallos de integridad'})
-    fig.show()
+        sendEmails(username, password, str3 + "\n" + '\n'.join(noMatchesToPrint))
+        report.append(str3 + "\n" + '\n'.join(noMatchesToPrint))
+    report.append("--------------------------------------------------------------------\n")
 
 
+#Método que permite enviar mensajes al destinatario deseado, indicando los problemas de integridad detectados por el HIDS en el directorio analizado y 
+# envía mensaje en caso de que el sistema se detenga
+def sendEmails(username, password, directorios):
+
+    remitente = username
+    asunto = "Problema de integridad"
+    body = "El HIDS ha detectado una integridad comprometida, por favor revise el siguiente log para conocer más detalles: "+ "\n"+ directorios
+
+    # Creamos la conexión con el servidor
+    sesion_smtp = smtplib.SMTP('smtp.gmail.com', 587)
+
+    # Ciframos la conexión
+    sesion_smtp.starttls()
+
+    # Iniciamos sesión en el servidor
+    sesion_smtp.login(username, password)
+
+
+    # Creamos el objeto mensaje
+    mensaje = MIMEMultipart()
+
+    # Establecemos los atributos del mensaje
+    mensaje['From'] = remitente
+    mensaje['To'] = destinatario
+    mensaje['Subject'] = asunto
+
+    # Agregamos el cuerpo del mensaje como objeto MIME de tipo texto
+    mensaje.attach(MIMEText(body, 'plain'))
+
+
+    # Convertimos el objeto mensaje a texto
+    texto = mensaje.as_string()
+
+    # Enviamos el mensaje
+    sesion_smtp.sendmail(remitente, destinatario, texto)
+
+    # Cerramos la conexión
+    sesion_smtp.quit()
+    print("Se han enviado los correos correctamente.")
+
+#Método que verifica la integridad
 def run():
-    """ Params: NONE """
-    """ Return: NONE """
-    """  """
-    
     if running == True:
         begin_time = datetime.datetime.now()
         compareHashes()
         logBox.config(state=tk.NORMAL)
         logBoxContainer()  # AQUI EL LOG BOX
         logBox.config(state=tk.DISABLED)
-        # graph()
         threading.Timer(float(verifyInterval), run).start()
         end = datetime.datetime.now() - begin_time
         strr = "Comprobación realizada con éxito en: " + str(end)
         logging.info(strr)
 
+#Método que genera el reporte con los datos recogidos de las verificaciones
+def runReport():
+    if running == True:
+        fechaHora = datetime.datetime.now().strftime("%d-%m-%Y_%H %M %S")
+        with open("Report " + fechaHora + ".txt", "w") as file:
+            for line in report:
+                file.write(line)
 
+        threading.Timer(float(reportInterval), runReport).start()
+        toaster.show_toast("HIDS", "Examen finalizado. Reporte generado.", duration=reportInterval, threaded=True)
+        logging.info("Examen finalizado. Reporte generado.")
+
+# Método que inicializa los hilos cuando se ejecutan el exámen 
 def runHandle():
     t = Thread(target=run)
+    #Vaciamos la lista del report para que no haya información de examenes anteriores cancelados
+    global report
+    report.clear()
     global running
     running = True
     t.start()
+    threading.Timer(float(reportInterval), runReport).start()
 
-
+# Método que inicia el exámen de comprobación de la integridad
 def initExam():
     console = logging.StreamHandler(sys.stdout)
     console.setLevel(100)
@@ -242,96 +296,71 @@ def initExam():
     exportHashedFiles()
     runHandle()
 
-
-def sendEmail(bodyMsg):
-    try:
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-
-        server.login(configDict["email"], configDict["smtpPass"])
-        subject = "¡Problema con la integridad de los archivos!"
-        body = bodyMsg
-        msg = f"Subject: {subject}\n\n{body}".encode('utf-8')
-        emailList = configDict["toEmail"].split(",")
-        for email in emailList:
-            server.sendmail("curalepal@gmail.com", email, msg)
-        server.quit()
-    except:
-        print("Ha ocurrido un error enviando el mensaje.")
-
-
-def gui():
-    window.resizable(0, 0)
-    window.geometry("1340x512")
-    labelInicio = tk.Label(window, text="Iniciar el examen ")
-    labelStop = tk.Label(window, text="Parar el examen ")
-    labelGraph = tk.Label(window, text="Abrir gráfico ")
-    labelHashes = tk.Label(window, text="Generar hashes ")
-    labelConf = tk.Label(window, text="Fichero de configuración")
-    labelLog = tk.Label(window, text="Fichero de LOG")
-    labelInicio.pack()
-    labelInicio.place(x=510, y=410)
-    labelStop.pack()
-    labelStop.place(x=728, y=410)
-    labelGraph.pack()
-    labelGraph.place(x=630, y=410)
-    labelHashes.pack()
-    labelHashes.place(x=400, y=410)
-    labelConf.pack()
-    labelConf.place(x=230, y=333)
-    labelLog.pack()
-    labelLog.place(x=950, y=333)
-    entry.pack()
-    entry.place(x=5, y=0)
-    window.title("HIDS")
-    btnHashes = tk.Button(window, text="Crear hashes", command=exportHashedFiles)
-    btnHashes.pack(pady=15, padx=15)
-    btnHashes.place(x=400, y=435)
-    btnGraph = tk.Button(window, text="Abrir grafico", command=graph)
-    btnGraph.pack(pady=15, padx=15)
-    btnGraph.place(x=628, y=435)
-    btnIniciar = tk.Button(window, text="Iniciar",
-                           command=initExam)
-    btnIniciar.pack(pady=15, padx=15)
-    btnIniciar.place(x=535, y=435)
-    btnCerrar = tk.Button(window, text="Parar", command=stop)
-    btnCerrar.pack(pady=15, padx=15)
-    btnCerrar.place(x=751, y=435)
-    btnGuardar = tk.Button(
-        window, text="Guardar configuración", command=exportConfig)
-    btnGuardar.pack(pady=15, padx=15)
-    btnGuardar.place(x=532, y=330)
-    logBox.pack()
-    logBox.place(x=670, y=0)
-    window.protocol("WM_DELETE_WINDOW", stopAndClose)
-    window.mainloop()
-
-
+#Método que permite interrumpir el servicio de comprobación de la integridad y hace una llamada a sendEmails() para notificar
 def stop():
     toaster.show_toast(
         "HIDS", "Servicio interrumpido. El sistema NO está examinando los directorios.", threaded=True)
     global running
     running = False
     logging.critical("EXAMEN INTERRUMPIDO")
+    sendEmails(username, password, "El HIDS se ha detenido, no se están realizando comprobaciones de integridad sobre su sistema de archivos.")
 
 
+#Método que permite interrumpir el servicio de comprobación de la integridad cuando se cierra la aplicación y hace una llamada a sendEmails() para notificar
 def stopAndClose():
     global running
     running = False
     logging.critical("HIDS CERRADO")
+    #sendEmails(username, password, "El HIDS se ha detenido, no se están realizando comprobaciones de integridad sobre su sistema de archivos.")
     os._exit(1)
 
 
+#Método que genera la interfaz de usuario del HIDS
+def gui():
+
+    window.resizable(0, 0)
+    window.geometry("1340x512")
+    
+    
+    labelInicio = tk.Label(window, text="Iniciar el examen ")
+    labelStop = tk.Label(window, text="Parar el examen ")
+    labelConf = tk.Label(window, text="Fichero de configuración")
+    labelLog = tk.Label(window, text="Fichero de LOG")
+    labelInicio.pack()
+    labelInicio.place(x=510, y=410)
+    labelStop.pack()
+    labelStop.place(x=800, y=410)
+    labelConf.pack()
+    labelConf.place(x=640, y=410)
+    labelLog.pack()
+    labelLog.place(x=630, y=350)
+    window.title("HIDS Security Team 23")
+    btnIniciar = tk.Button(window, text="Iniciar",
+                           command=initExam)
+    btnIniciar.pack(pady=15, padx=15)
+    btnIniciar.place(x=535, y=435)
+    btnCerrar = tk.Button(window, text="Parar", command=stop)
+    btnCerrar.pack(pady=15, padx=15)
+    btnCerrar.place(x=825, y=435)
+    btnGuardar = tk.Button(
+        window, text="Importar configuración", command=importConfig)
+    btnGuardar.pack(pady=15, padx=15)
+    btnGuardar.place(x=640, y=435)
+    logBox.pack()
+    logBox.place(x=370, y=24)
+    window.protocol("WM_DELETE_WINDOW", stopAndClose)
+    window.mainloop()
+
+
+# Método que inicializa la aplicación, lee los logs e importa la configuración además de cargar la interfaz de usuario
 def iniciar():
     try:
-        Path("C:\\top_secret").mkdir(parents=True)
+        Path("C:\\hids-ssii").mkdir(parents=True)
     except:
         pass
     readLogFile()
     filename = os.path.abspath('.').split(os.path.sep)[
-        0]+os.path.sep+"top_secret\log.log"
+        0]+os.path.sep+"hids-ssii\log.log"
     logging.basicConfig(format='%(levelname)s:%(asctime)s: %(message)s',
                         datefmt='%m/%d/%Y %H:%M:%S', filename=filename, level=logging.INFO)
     importConfig()
