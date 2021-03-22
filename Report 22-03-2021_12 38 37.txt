@@ -1,0 +1,28 @@
+22/03/2021, 12:37:37
+Número de archivos OK: 848
+Número de archivos MODIFICADOS: 0
+--------------------------------------------------------------------
+22/03/2021, 12:37:48
+Número de archivos OK: 848
+Número de archivos MODIFICADOS: 0
+--------------------------------------------------------------------
+22/03/2021, 12:37:58
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/readme.md ¡Los hashes no coinciden!--------------------------------------------------------------------
+22/03/2021, 12:38:10
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/readme.md ¡Los hashes no coinciden!--------------------------------------------------------------------
+22/03/2021, 12:38:21
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/readme.md ¡Archivo eliminado detectado!--------------------------------------------------------------------
+22/03/2021, 12:38:32
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/readme.md ¡Archivo eliminado detectado!--------------------------------------------------------------------

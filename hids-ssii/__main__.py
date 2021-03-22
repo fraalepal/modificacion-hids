@@ -36,16 +36,16 @@ window = tk.Tk()
 entry = ScrolledText(window, width=80, height=20)
 logBox = ScrolledText(window, width=80, height=20)
 toaster = ToastNotifier()
+'''
 username = "ssiigrupo23@gmail.com"
 password = "seguridad23"
 destinatario = "curalepal@gmail.com"
-
+'''
 
 
 # Genera una estructura en forma de árbol binario a partir de los directorios escogidos para las comprobaciones de integridad, cada nodo del arbol es una tupla (ruta,hash)
 # Donde el hash se realizará de acuerdo al tipo indicado en el fichero de configuración.
-def binaryTreeHash(pathName):
-    global arbol #Se pone global para dejar claro que vamos a utilizar una varible global y evitar que busque una variable local en su lugar
+def binaryTreeHash(pathName, arbol):
     for root, dirs, files in os.walk(pathName):
         for file in files:
             with open(os.path.join(root, file), "rb") as fileRaw:   
@@ -140,11 +140,12 @@ def exportHashedFiles():
     de ellas gracias a la función anterior 'binaryTreeHash', una vez hecho esto crea un archivo 'hashes.hash' si no lo hay y escribe
     en el todas las rutas junto a su hash, separadas mediante un simbolo '=' """
     # TIME
+    global arbol #Se pone global para dejar claro que vamos a utilizar una varible global y evitar que busque una variable local en su lugar
     begin_time = datetime.datetime.now()
     splittedPathsToHash = configDict["Directories to protect"].split(
         ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
     for path in splittedPathsToHash:
-        binaryTreeHash(path) 
+        binaryTreeHash(path, arbol) 
     end = datetime.datetime.now()-begin_time
     strr = "Hashes exportados correctamente en: " + str(end)
     print("Hemos creado el árbol en: " + str(end))
@@ -162,21 +163,44 @@ def compareHashes():
     numberOfFilesNoOk = int()
     listOfNoMatches = list()
     global report
+    arbolActual = Arbol()
+    splittedPathsToHash = configDict["Directories to protect"].split(
+        ",")  # para ser mejor, hacer strip con un for para cada elemento por si acaso
+    for path in splittedPathsToHash:
+        binaryTreeHash(path, arbolActual)
     tupleTree = arbol.recorrer()
-    for path, treeHash in tupleTree:
-        with open(os.path.join(path), "rb") as fileRaw:   
-                if(configDict["Selected Hash mode"].lower() == "sha3_512"):
-                    nuevoHash = hashlib.sha3_512(fileRaw.read()).hexdigest()
-                elif(configDict["Selected Hash mode"].lower() == "sha3_384"):
-                    nuevoHash = hashlib.sha3_384(fileRaw.read()).hexdigest()                    
-                #Por defecto dejaremos cifrado sha-256
-                else:
-                    nuevoHash = hashlib.sha3_256(fileRaw.read()).hexdigest()
-        if nuevoHash == treeHash:
-            numberOfFilesOK += 1
-        else:
+    dictArbol = dict(tupleTree)
+    tupleActual = arbolActual.recorrer()
+    dictArbolActual = dict(tupleActual)
+    #Comprobamos las rutas de los ficheros que hay actualmente en el sistema de archivos con las que había cuando se inició
+    #el HIDS para el directorio/s que sea
+    value = { k : dictArbol[k] for k in set(dictArbol) - set(dictArbolActual) }
+    for fichero in value:
+        numberOfFilesNoOk += 1
+        cadena = "DIR: " + str(fichero) + " ¡Archivo eliminado detectado!"
+        listOfNoMatches.append(cadena)
+
+    value2 = { k : dictArbolActual[k] for k in set(dictArbolActual) - set(dictArbol) }
+    for fichero in value2:
+        numberOfFilesNoOk += 1
+        cadena = "DIR: " + str(fichero) + " ¡Archivo nuevo detectado!"
+        listOfNoMatches.append(cadena)
+        aux = (fichero, value2[fichero])
+        tupleActual.remove(aux)
+    #z = {**value, **value2}
+
+    for tupla in tupleActual:
+        try:
+            nodoGuardado = arbol.buscar(tupla)
+            if nodoGuardado.dato[1] == tupla[1]:
+                numberOfFilesOK += 1
+            else:
+                numberOfFilesNoOk += 1
+                cadena = "DIR: " + str(tupla[0]) + " ¡Los hashes no coinciden!"
+                listOfNoMatches.append(cadena)
+        except:
             numberOfFilesNoOk += 1
-            cadena = "DIR: " + str(path) + " ¡Los hashes no coinciden!"
+            cadena = "DIR: " + str(tupla[0]) + " ¡Los hashes no coinciden!"
             listOfNoMatches.append(cadena)
     badIntegrity.append(numberOfFilesNoOk)
 
@@ -201,16 +225,19 @@ def compareHashes():
         logging.warning(str3 + "\n" + '\n'.join(noMatchesToPrint))
         toaster.show_toast(
             "HIDS", "Problema de integridad detectado. Revisar LOG.", duration=verifyInterval, threaded=True)
-        sendEmails(username, password, str3 + "\n" + '\n'.join(noMatchesToPrint))
+        sendEmails(str3 + "\n" + '\n'.join(noMatchesToPrint))
         report.append(str3 + "\n" + '\n'.join(noMatchesToPrint))
     report.append("--------------------------------------------------------------------\n")
 
 
 #Método que permite enviar mensajes al destinatario deseado, indicando los problemas de integridad detectados por el HIDS en el directorio analizado y 
 # envía mensaje en caso de que el sistema se detenga
-def sendEmails(username, password, directorios):
+def sendEmails(directorios):
 
-    remitente = username
+    
+    remitente = str(configDict["email"])
+    password = str(configDict["smtpPass"])
+    destinatario = str(configDict["toEmail"])
     asunto = "Problema de integridad"
     body = "El HIDS ha detectado una integridad comprometida, por favor revise el siguiente log para conocer más detalles: "+ "\n"+ directorios
 
@@ -221,7 +248,7 @@ def sendEmails(username, password, directorios):
     sesion_smtp.starttls()
 
     # Iniciamos sesión en el servidor
-    sesion_smtp.login(username, password)
+    sesion_smtp.login(remitente, password)
 
 
     # Creamos el objeto mensaje
@@ -303,7 +330,7 @@ def stop():
     global running
     running = False
     logging.critical("EXAMEN INTERRUMPIDO")
-    sendEmails(username, password, "El HIDS se ha detenido, no se están realizando comprobaciones de integridad sobre su sistema de archivos.")
+    sendEmails("El HIDS se ha detenido, no se están realizando comprobaciones de integridad sobre su sistema de archivos.")
 
 
 #Método que permite interrumpir el servicio de comprobación de la integridad cuando se cierra la aplicación y hace una llamada a sendEmails() para notificar

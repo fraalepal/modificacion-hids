@@ -1,0 +1,31 @@
+22/03/2021, 12:44:46
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 0
+--------------------------------------------------------------------
+22/03/2021, 12:44:57
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/pom - copia.xml ¡Archivo nuevo detectado!--------------------------------------------------------------------
+22/03/2021, 12:45:08
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/pom - copia.xml ¡Archivo nuevo detectado!--------------------------------------------------------------------
+22/03/2021, 12:45:20
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/pom - copia.xml ¡Archivo nuevo detectado!--------------------------------------------------------------------
+22/03/2021, 12:45:31
+Número de archivos OK: 846
+Número de archivos MODIFICADOS: 2
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/pom.xml ¡Archivo eliminado detectado!
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/pom - copia.xml ¡Archivo nuevo detectado!--------------------------------------------------------------------
+22/03/2021, 12:45:43
+Número de archivos OK: 846
+Número de archivos MODIFICADOS: 2
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/pom.xml ¡Archivo eliminado detectado!
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/pom - copia.xml ¡Archivo nuevo detectado!--------------------------------------------------------------------

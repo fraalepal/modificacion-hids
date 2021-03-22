@@ -1,0 +1,27 @@
+22/03/2021, 12:27:41
+Número de archivos OK: 848
+Número de archivos MODIFICADOS: 0
+--------------------------------------------------------------------
+22/03/2021, 12:27:52
+Número de archivos OK: 849
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/readme - copia.md ¡Archivo nuevo detectado!--------------------------------------------------------------------
+22/03/2021, 12:28:03
+Número de archivos OK: 848
+Número de archivos MODIFICADOS: 0
+--------------------------------------------------------------------
+22/03/2021, 12:28:14
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/readme.md ¡Archivo eliminado detectado!--------------------------------------------------------------------
+22/03/2021, 12:28:25
+Número de archivos OK: 847
+Número de archivos MODIFICADOS: 1
+Archivos con integridad comprometida: 
+           DIR: C:/Users/fraal/Desktop/The-Ionian-BookShelf-master/readme.md ¡Archivo eliminado detectado!--------------------------------------------------------------------
+22/03/2021, 12:28:36
+Número de archivos OK: 848
+Número de archivos MODIFICADOS: 0
+--------------------------------------------------------------------
