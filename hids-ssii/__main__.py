@@ -36,11 +36,7 @@ window = tk.Tk()
 entry = ScrolledText(window, width=80, height=20)
 logBox = ScrolledText(window, width=80, height=20)
 toaster = ToastNotifier()
-'''
-username = "ssiigrupo23@gmail.com"
-password = "seguridad23"
-destinatario = "curalepal@gmail.com"
-'''
+
 
 
 # Genera una estructura en forma de árbol binario a partir de los directorios escogidos para las comprobaciones de integridad, cada nodo del arbol es una tupla (ruta,hash)
